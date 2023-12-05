@@ -11,7 +11,7 @@ import (
 func Entry() {
 	println("\n\n***** Day 1 ****")
 
-	fileContent, error := os.ReadFile("./days/day_1/input.txt")
+	fileContent, error := os.ReadFile("./days/day_1_1/input.txt")
 	if error != nil {
 		panic(error)
 	}
