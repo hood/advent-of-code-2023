@@ -9,7 +9,7 @@ import (
 
 // Day1.1 entry point.
 func Entry() {
-	println("\n\n***** Day 1 ****")
+	println("\n\n***** Day 1,1 ****")
 
 	fileContent, error := os.ReadFile("./days/day_1_1/input.txt")
 	if error != nil {
