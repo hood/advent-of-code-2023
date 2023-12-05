@@ -9,6 +9,8 @@ import (
 
 // Day1 entry point.
 func Day1() {
+	println("\n\n***** Day 1 ****")
+
 	fileContent, error := os.ReadFile("./days/day_1/input.txt")
 	if error != nil {
 		panic(error)
