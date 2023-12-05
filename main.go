@@ -1,15 +1,15 @@
 package main
 
 import (
-	"adventofcode2023/days/day_1"
-	"adventofcode2023/days/day_2"
+	"adventofcode2023/days/day_1_1"
+	"adventofcode2023/days/day_1_2"
 )
 
 func main() {
 	println("Starting...")
 
-	day_1.Day1()
-	day_2.Day2()
+	day_1_1.Entry()
+	day_1_2.Entry()
 
 	println("Done!")
 }

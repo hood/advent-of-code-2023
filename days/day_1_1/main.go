@@ -1,4 +1,4 @@
-package day_1
+package day_1_1
 
 import (
 	"os"
@@ -7,8 +7,8 @@ import (
 	"unicode"
 )
 
-// Day1 entry point.
-func Day1() {
+// Day1.1 entry point.
+func Entry() {
 	println("\n\n***** Day 1 ****")
 
 	fileContent, error := os.ReadFile("./days/day_1/input.txt")

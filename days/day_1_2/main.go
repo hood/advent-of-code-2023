@@ -1,4 +1,4 @@
-package day_2
+package day_1_2
 
 import (
 	"os"
@@ -10,8 +10,8 @@ import (
 var digits = []string{"1", "2", "3", "4", "5", "6", "7", "8", "9"}
 var stringifiedDigits = []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
 
-// Day2 entry point.
-func Day2() {
+// Day1.2 entry point.
+func Entry() {
 	println("\n\n***** Day 2 ****")
 
 	fileContent, error := os.ReadFile("./days/day_2/input.txt")
