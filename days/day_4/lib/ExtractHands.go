@@ -14,9 +14,9 @@ func ExtractHands(lines []string) []Hand {
 		title := strings.Split(line, ":")[0]
 		cardsStrings := strings.Split(line, ":")[1]
 
-		id := strings.Split(title, "Card ")[1]
+		id := strings.Split(title, "Card")[1]
 
-		parsedID, error := strconv.Atoi(id)
+		parsedID, error := strconv.Atoi(strings.Trim(id, " "))
 		if error != nil {
 			panic(error)
 		}
