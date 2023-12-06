@@ -32,4 +32,10 @@ func day5Part1() {
 		maps[mapName] = lib.ParseMaps(mapsGroup)
 	}
 
+	seeds := lib.ParseSeeds(lines)
+
+	for _, seed := range seeds {
+		humiditiesByLocations
+
+	}
 }
