@@ -2,6 +2,7 @@ package day_4
 
 import (
 	"adventofcode2023/days/day_4/lib"
+	"fmt"
 	"os"
 	"strings"
 )
@@ -17,5 +18,9 @@ func day4Part1() {
 
 	hands := lib.ExtractHands(strings.Split(string(fileContent), "\n"))
 
-	println("Result", "->", fileContent)
+	for _, hand := range hands {
+		println("Hand", hand.ID, "->", fmt.Sprintf("%v", hand.WinningNumbers()))
+	}
+
+	// println("Result", "->", fileContent)
 }
