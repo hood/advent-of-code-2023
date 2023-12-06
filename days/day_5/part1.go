@@ -69,6 +69,8 @@ func day5Part1() {
 		seedsBySoils = append(seedsBySoils, lib.GetPairs(rangeMap)...)
 	}
 
+	lowestSeedLocation := -1
+
 	for _, seed := range seeds {
 		seedLocation := lib.GetLocationBySeed(
 			seed,
@@ -81,6 +83,10 @@ func day5Part1() {
 			seedsBySoils,
 		)
 
-		println(seedLocation)
+		if lowestSeedLocation == -1 || seedLocation < lowestSeedLocation {
+			lowestSeedLocation = seedLocation
+		}
 	}
+
+	println("Result", "->", lowestSeedLocation)
 }

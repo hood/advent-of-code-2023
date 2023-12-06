@@ -18,8 +18,6 @@ func GetLocationBySeed(
 	humidity := -1
 	location := -1
 
-	println("\nSeed", seed)
-
 	for _, seedSoilPair := range seedsBySoils {
 		if seedSoilPair[0] != seed {
 			continue
@@ -31,8 +29,6 @@ func GetLocationBySeed(
 	if soil == -1 {
 		soil = seed
 	}
-
-	println("Soil", soil)
 
 	for _, soilFertilizerPair := range soilsByFertilizers {
 		if soilFertilizerPair[0] != soil {
@@ -46,8 +42,6 @@ func GetLocationBySeed(
 		fertilizer = soil
 	}
 
-	println("Fertilizer", fertilizer)
-
 	for _, fertilizerWaterPair := range fertilizersByWaters {
 		if fertilizerWaterPair[0] != fertilizer {
 			continue
@@ -59,8 +53,6 @@ func GetLocationBySeed(
 	if water == -1 {
 		water = fertilizer
 	}
-
-	println("Water", water)
 
 	for _, waterLightPair := range watersByLights {
 		if waterLightPair[0] != water {
@@ -74,8 +66,6 @@ func GetLocationBySeed(
 		light = water
 	}
 
-	println("Light", light)
-
 	for _, lightTemperaturePair := range lightsByTemperatures {
 		if lightTemperaturePair[0] != light {
 			continue
@@ -87,8 +77,6 @@ func GetLocationBySeed(
 	if temperature == -1 {
 		temperature = light
 	}
-
-	println("Temperature", temperature)
 
 	for _, temperatureHumidityPair := range temperaturesByHumidities {
 		if temperatureHumidityPair[0] != temperature {
@@ -102,8 +90,6 @@ func GetLocationBySeed(
 		humidity = temperature
 	}
 
-	println("Humidity", humidity)
-
 	for _, humidityLocationPair := range humiditiesByLocations {
 		if humidityLocationPair[0] != humidity {
 			continue
@@ -115,8 +101,6 @@ func GetLocationBySeed(
 	if location == -1 {
 		location = humidity
 	}
-
-	println("Location", location)
 
 	return location
 }
