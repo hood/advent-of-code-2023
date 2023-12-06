@@ -11,8 +11,8 @@ func TestParseSeedsRanges(t *testing.T) {
 	result := ParseSeedsRanges(input)
 
 	expected := []SeedsRange{
-		SeedsRange{Start: 79, End: 79 + 14 - 1},
-		SeedsRange{Start: 55, End: 55 + 13 - 1},
+		{Start: 79, End: 79 + 14 - 1},
+		{Start: 55, End: 55 + 13 - 1},
 	}
 
 	if len(result) != len(expected) {
