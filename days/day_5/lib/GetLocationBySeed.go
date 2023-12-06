@@ -18,5 +18,16 @@ func GetLocationBySeed(
 	humidity := FindMappedValue(temperature, temperaturesByHumidities)
 	location := FindMappedValue(humidity, humiditiesByLocations)
 
+	println(
+		"\n\nseed", seed,
+		"\nsoil", soil,
+		"\nfertilizer", fertilizer,
+		"\nwater", water,
+		"\nlight", light,
+		"\ntemperature", temperature,
+		"\nhumidity", humidity,
+		"\nlocation", location,
+	)
+
 	return location
 }
