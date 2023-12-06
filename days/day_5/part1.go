@@ -31,4 +31,5 @@ func day5Part1() {
 
 		maps[mapName] = lib.ParseMaps(mapsGroup)
 	}
+
 }
