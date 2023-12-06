@@ -11,6 +11,9 @@ func GetLocationBySeed(
 	seedsBySoils [][]int,
 ) int {
 	soil := FindMappedValue(seed, seedsBySoils)
+
+	println("Seed", seed, "mapped to soil", soil)
+
 	fertilizer := FindMappedValue(soil, soilsByFertilizers)
 	water := FindMappedValue(fertilizer, fertilizersByWaters)
 	light := FindMappedValue(water, watersByLights)
