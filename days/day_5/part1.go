@@ -34,63 +34,26 @@ func day5Part1() {
 
 	seeds := lib.ParseSeeds(lines)
 
-	// TODO: use FindMapping
-
-	humiditiesByLocations := [][]int{}
-	for _, rangeMap := range maps["humidity-to-location"] {
-		humiditiesByLocations = append(humiditiesByLocations, lib.GetPairs(rangeMap)...)
-	}
-
-	temperaturesByHumidities := [][]int{}
-	for _, rangeMap := range maps["temperature-to-humidity"] {
-		temperaturesByHumidities = append(temperaturesByHumidities, lib.GetPairs(rangeMap)...)
-	}
-
-	lightsByTemperatures := [][]int{}
-	for _, rangeMap := range maps["light-to-temperature"] {
-		lightsByTemperatures = append(lightsByTemperatures, lib.GetPairs(rangeMap)...)
-	}
-
-	watersByLights := [][]int{}
-	for _, rangeMap := range maps["water-to-light"] {
-		watersByLights = append(watersByLights, lib.GetPairs(rangeMap)...)
-	}
-
-	fertilizersByWaters := [][]int{}
-	for _, rangeMap := range maps["fertilizer-to-water"] {
-		fertilizersByWaters = append(fertilizersByWaters, lib.GetPairs(rangeMap)...)
-	}
-
-	soilsByFertilizers := [][]int{}
-	for _, rangeMap := range maps["soil-to-fertilizer"] {
-		soilsByFertilizers = append(soilsByFertilizers, lib.GetPairs(rangeMap)...)
-	}
-
-	seedsBySoils := [][]int{}
-	for _, rangeMap := range maps["seed-to-soil"] {
-		seedsBySoils = append(seedsBySoils, lib.GetPairs(rangeMap)...)
-	}
-
 	lowestSeedLocation := -1
 
-	for index, seed := range seeds {
+	for _, seed := range seeds {
 		seedLocation := lib.GetLocationBySeed(
 			seed,
-			humiditiesByLocations,
-			temperaturesByHumidities,
-			lightsByTemperatures,
-			watersByLights,
-			fertilizersByWaters,
-			soilsByFertilizers,
-			seedsBySoils,
+			maps["seed-to-soil"],
+			maps["soil-to-fertilizer"],
+			maps["fertilizer-to-water"],
+			maps["water-to-light"],
+			maps["light-to-temperature"],
+			maps["temperature-to-humidity"],
+			maps["humidity-to-location"],
 		)
 
 		if lowestSeedLocation == -1 || seedLocation < lowestSeedLocation {
 			lowestSeedLocation = seedLocation
 		}
-
-		println("Seed", index, "of", len(seeds), "mapped")
 	}
 
 	println("Result", "->", lowestSeedLocation)
 }
+
+// your answer is too low :  7600537

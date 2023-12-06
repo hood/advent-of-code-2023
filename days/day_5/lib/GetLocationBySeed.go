@@ -2,18 +2,15 @@ package lib
 
 func GetLocationBySeed(
 	seed int,
-	humiditiesByLocations [][]int,
-	temperaturesByHumidities [][]int,
-	lightsByTemperatures [][]int,
-	watersByLights [][]int,
-	fertilizersByWaters [][]int,
-	soilsByFertilizers [][]int,
-	seedsBySoils [][]int,
+	humiditiesByLocations []Map,
+	temperaturesByHumidities []Map,
+	lightsByTemperatures []Map,
+	watersByLights []Map,
+	fertilizersByWaters []Map,
+	soilsByFertilizers []Map,
+	seedsBySoils []Map,
 ) int {
 	soil := FindMappedValue(seed, seedsBySoils)
-
-	println("Seed", seed, "mapped to soil", soil)
-
 	fertilizer := FindMappedValue(soil, soilsByFertilizers)
 	water := FindMappedValue(fertilizer, fertilizersByWaters)
 	light := FindMappedValue(water, watersByLights)
