@@ -57,3 +57,12 @@ func day5Part2() {
 }
 
 // your answer is too high: 289863851
+
+// In the above example, the lowest location number can be obtained from seed
+// number 82, which corresponds to soil 84, fertilizer 84, water 84, light 77,
+// temperature 45, humidity 46, and location 46. So, the lowest location number
+// is 46.
+//
+// Why 82 and not 79?
+// Gut says: Because the seeds range is 79-92, and 82 is the first
+// seed in that range that produces a location number of 46.
