@@ -6,9 +6,9 @@ import (
 	"strings"
 )
 
-// Day3.1 entry point.
-func day3Part1() {
-	println("\n\n***** Day 3.1 ****")
+// Day3.2 entry point.
+func day3Part2() {
+	println("\n\n***** Day 3.2 ****")
 
 	fileContent, error := os.ReadFile("./days/day_3/input.txt")
 	if error != nil {
@@ -18,15 +18,12 @@ func day3Part1() {
 	lines := strings.Split(string(fileContent), "\n")
 
 	partsNumbers := lib.ExtractPartsNumbers(lines)
-	symbols := lib.ExtractSymbols(lines)
+	gears := lib.ExtractGears(lines, partsNumbers)
 
 	result := 0
 
-	for _, partNumber := range partsNumbers {
-
-		if lib.PartNumberHasAdjacentSymbol(partNumber, symbols) {
-			result += partNumber.Value
-		}
+	for _, gear := range gears {
+		result += gear.Ratio
 	}
 
 	println("Result", "->", result)
