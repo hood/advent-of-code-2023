@@ -10,7 +10,7 @@ import (
 func day3Part1() {
 	println("\n\n***** Day 3.1 ****")
 
-	fileContent, error := os.ReadFile("./days/day_3/test_input.txt")
+	fileContent, error := os.ReadFile("./days/day_3/input.txt")
 	if error != nil {
 		panic(error)
 	}
@@ -23,7 +23,9 @@ func day3Part1() {
 	result := 0
 
 	for _, partNumber := range partsNumbers {
+
 		if lib.PartNumberHasAdjacentSymbol(partNumber, symbols) {
+			println("Part number", partNumber.Value, "has adjacent symbol")
 			result += partNumber.Value
 		}
 	}
