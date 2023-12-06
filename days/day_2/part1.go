@@ -16,7 +16,7 @@ var AvailableCubesSet = lib.CubesSet{
 func day2Part1() {
 	println("\n\n***** Day 2.1 ****")
 
-	fileContent, error := os.ReadFile("./days/day_2_1/input.txt")
+	fileContent, error := os.ReadFile("./days/day_2/input.txt")
 	if error != nil {
 		panic(error)
 	}
