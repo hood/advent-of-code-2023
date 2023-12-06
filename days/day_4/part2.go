@@ -10,7 +10,7 @@ import (
 func day4Part2() {
 	println("\n\n***** Day 4.2 ****")
 
-	fileContent, error := os.ReadFile("./days/day_4/part_2_test_input.txt")
+	fileContent, error := os.ReadFile("./days/day_4/input.txt")
 	if error != nil {
 		panic(error)
 	}

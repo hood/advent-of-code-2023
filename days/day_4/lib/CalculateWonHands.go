@@ -12,7 +12,7 @@ func CalculateWonHands(hands []Hand) []int {
 
 		for occurrencyOfCurrentCard := 0; occurrencyOfCurrentCard < occurrenciesOfCards[currentCardIndex]; occurrencyOfCurrentCard++ {
 			for wonIndex := range wonByHand {
-				occurrenciesOfCards[currentCardIndex+(wonIndex+1)] += 1
+				occurrenciesOfCards[currentCardIndex+(wonIndex+1)]++
 			}
 		}
 	}
