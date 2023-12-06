@@ -1,7 +1,5 @@
 package lib
 
-import "slices"
-
 func GetLocationBySeed(
 	seed int,
 	humiditiesByLocations [][]int,
@@ -20,8 +18,10 @@ func GetLocationBySeed(
 	humidity := -1
 	location := -1
 
+	println("\nSeed", seed)
+
 	for _, seedSoilPair := range seedsBySoils {
-		if slices.Contains(seedSoilPair, seed) {
+		if seedSoilPair[0] != seed {
 			continue
 		}
 
@@ -29,11 +29,13 @@ func GetLocationBySeed(
 	}
 
 	if soil == -1 {
-		return -1
+		soil = seed
 	}
 
+	println("Soil", soil)
+
 	for _, soilFertilizerPair := range soilsByFertilizers {
-		if slices.Contains(soilFertilizerPair, soil) {
+		if soilFertilizerPair[0] != soil {
 			continue
 		}
 
@@ -41,11 +43,13 @@ func GetLocationBySeed(
 	}
 
 	if fertilizer == -1 {
-		return -1
+		fertilizer = soil
 	}
 
+	println("Fertilizer", fertilizer)
+
 	for _, fertilizerWaterPair := range fertilizersByWaters {
-		if slices.Contains(fertilizerWaterPair, fertilizer) {
+		if fertilizerWaterPair[0] != fertilizer {
 			continue
 		}
 
@@ -53,11 +57,13 @@ func GetLocationBySeed(
 	}
 
 	if water == -1 {
-		return -1
+		water = fertilizer
 	}
 
+	println("Water", water)
+
 	for _, waterLightPair := range watersByLights {
-		if slices.Contains(waterLightPair, water) {
+		if waterLightPair[0] != water {
 			continue
 		}
 
@@ -65,11 +71,13 @@ func GetLocationBySeed(
 	}
 
 	if light == -1 {
-		return -1
+		light = water
 	}
 
+	println("Light", light)
+
 	for _, lightTemperaturePair := range lightsByTemperatures {
-		if slices.Contains(lightTemperaturePair, light) {
+		if lightTemperaturePair[0] != light {
 			continue
 		}
 
@@ -77,11 +85,13 @@ func GetLocationBySeed(
 	}
 
 	if temperature == -1 {
-		return -1
+		temperature = light
 	}
 
+	println("Temperature", temperature)
+
 	for _, temperatureHumidityPair := range temperaturesByHumidities {
-		if slices.Contains(temperatureHumidityPair, temperature) {
+		if temperatureHumidityPair[0] != temperature {
 			continue
 		}
 
@@ -89,11 +99,13 @@ func GetLocationBySeed(
 	}
 
 	if humidity == -1 {
-		return -1
+		humidity = temperature
 	}
 
+	println("Humidity", humidity)
+
 	for _, humidityLocationPair := range humiditiesByLocations {
-		if slices.Contains(humidityLocationPair, humidity) {
+		if humidityLocationPair[0] != humidity {
 			continue
 		}
 
@@ -101,8 +113,10 @@ func GetLocationBySeed(
 	}
 
 	if location == -1 {
-		return -1
+		location = humidity
 	}
+
+	println("Location", location)
 
 	return location
 }
