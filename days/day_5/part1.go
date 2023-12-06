@@ -56,5 +56,3 @@ func day5Part1() {
 
 	println("Result", "->", lowestSeedLocation)
 }
-
-// your answer is too low :  7600537

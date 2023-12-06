@@ -2,13 +2,13 @@ package lib
 
 func GetLocationBySeed(
 	seed int,
-	humiditiesByLocations []Map,
-	temperaturesByHumidities []Map,
-	lightsByTemperatures []Map,
-	watersByLights []Map,
-	fertilizersByWaters []Map,
-	soilsByFertilizers []Map,
 	seedsBySoils []Map,
+	soilsByFertilizers []Map,
+	fertilizersByWaters []Map,
+	watersByLights []Map,
+	lightsByTemperatures []Map,
+	temperaturesByHumidities []Map,
+	humiditiesByLocations []Map,
 ) int {
 	soil := FindLowestMappedValue(seed, seedsBySoils)
 	fertilizer := FindLowestMappedValue(soil, soilsByFertilizers)
