@@ -25,18 +25,15 @@ func day2Part1() {
 
 	total := 0
 
-mainLoop:
 	for _, line := range lines {
 		gameID := lib.ParseGameID(line)
 
 		gameCubesSets := lib.ParseCubesSets(line)
 
-		for _, partialCubesSet := range gameCubesSets {
-			if partialCubesSet.Red > AvailableCubesSet.Red ||
-				partialCubesSet.Green > AvailableCubesSet.Green ||
-				partialCubesSet.Blue > AvailableCubesSet.Blue {
-				continue mainLoop
-			}
+		isFeasible := lib.IsGameFeasible(gameCubesSets, AvailableCubesSet)
+
+		if !isFeasible {
+			continue
 		}
 
 		total += gameID
