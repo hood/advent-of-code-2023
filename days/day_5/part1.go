@@ -34,6 +34,8 @@ func day5Part1() {
 
 	seeds := lib.ParseSeeds(lines)
 
+	// TODO: use FindMapping
+
 	humiditiesByLocations := [][]int{}
 	for _, rangeMap := range maps["humidity-to-location"] {
 		humiditiesByLocations = append(humiditiesByLocations, lib.GetPairs(rangeMap)...)
