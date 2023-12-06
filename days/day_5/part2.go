@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func day5Part1() {
-	println("\n\n***** Day 5.1 ****")
+func day5Part2() {
+	println("\n\n***** Day 5.2 ****")
 
 	fileContent, error := os.ReadFile("./days/day_5/input.txt")
 	if error != nil {
@@ -32,13 +32,13 @@ func day5Part1() {
 		maps[mapName] = lib.ParseMaps(mapsGroup)
 	}
 
-	seeds := lib.ParseSeeds(lines)
+	seedsRanges := lib.ParseSeedsRanges(lines)
 
 	lowestSeedLocation := -1
 
-	for _, seed := range seeds {
-		seedLocation := lib.GetLocationBySeed(
-			seed,
+	for _, seedsRange := range seedsRanges {
+		seedLocation := lib.GetLocationBySeedsRange(
+			seedsRange,
 			maps["seed-to-soil"],
 			maps["soil-to-fertilizer"],
 			maps["fertilizer-to-water"],
@@ -55,3 +55,5 @@ func day5Part1() {
 
 	println("Result", "->", lowestSeedLocation)
 }
+
+// your answer is too high: 289863851
