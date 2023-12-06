@@ -34,8 +34,53 @@ func day5Part1() {
 
 	seeds := lib.ParseSeeds(lines)
 
-	for _, seed := range seeds {
-		humiditiesByLocations
+	humiditiesByLocations := [][]int{}
+	for _, rangeMap := range maps["humidity-to-location"] {
+		humiditiesByLocations = append(humiditiesByLocations, lib.GetPairs(rangeMap)...)
+	}
 
+	temperaturesByHumidities := [][]int{}
+	for _, rangeMap := range maps["temperature-to-humidity"] {
+		temperaturesByHumidities = append(temperaturesByHumidities, lib.GetPairs(rangeMap)...)
+	}
+
+	lightsByTemperatures := [][]int{}
+	for _, rangeMap := range maps["light-to-temperature"] {
+		lightsByTemperatures = append(lightsByTemperatures, lib.GetPairs(rangeMap)...)
+	}
+
+	watersByLights := [][]int{}
+	for _, rangeMap := range maps["water-to-light"] {
+		watersByLights = append(watersByLights, lib.GetPairs(rangeMap)...)
+	}
+
+	fertilizersByWaters := [][]int{}
+	for _, rangeMap := range maps["fertilizer-to-water"] {
+		fertilizersByWaters = append(fertilizersByWaters, lib.GetPairs(rangeMap)...)
+	}
+
+	soilsByFertilizers := [][]int{}
+	for _, rangeMap := range maps["soil-to-fertilizer"] {
+		soilsByFertilizers = append(soilsByFertilizers, lib.GetPairs(rangeMap)...)
+	}
+
+	seedsBySoils := [][]int{}
+	for _, rangeMap := range maps["seed-to-soil"] {
+		seedsBySoils = append(seedsBySoils, lib.GetPairs(rangeMap)...)
+	}
+
+	for _, seed := range seeds {
+		seedLocation := lib.GetLocationBySeed(
+			seed,
+			humiditiesByLocations,
+			temperaturesByHumidities,
+			lightsByTemperatures,
+			watersByLights,
+			fertilizersByWaters,
+			soilsByFertilizers,
+			seedsBySoils,
+		)
+
+		println(seedLocation)
 	}
 }

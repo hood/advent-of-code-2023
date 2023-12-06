@@ -6,6 +6,7 @@ import (
 	"adventofcode2023/days/day_2"
 	"adventofcode2023/days/day_3"
 	"adventofcode2023/days/day_4"
+	"adventofcode2023/days/day_5"
 )
 
 func main() {
@@ -19,6 +20,8 @@ func main() {
 	day_3.Day3()
 
 	day_4.Day4()
+
+	day_5.Day5()
 
 	println("\n\nDone!")
 }
