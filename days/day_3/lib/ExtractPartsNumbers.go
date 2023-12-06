@@ -79,14 +79,7 @@ func (partExtractor *PartExtractor) EndCapture(row int, column int) {
 
 	partExtractor.partsNumbers = append(partExtractor.partsNumbers, partExtractor.current)
 
-	partExtractor.current = PartNumber{
-		Value:       -1,
-		Row:         row,
-		StartColumn: -1,
-		EndColumn:   -1,
-	}
-
-	partExtractor.temporaryAccumulator = ""
+	partExtractor.ResetCapture(row)
 }
 
 func (partExtractor *PartExtractor) ShouldCapture(char rune) bool {
