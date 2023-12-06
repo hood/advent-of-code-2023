@@ -6,8 +6,6 @@ func FindLowestMappedValueInRange(seedsRange SeedsRange, mappings []Map) int {
 	for i := seedsRange.Start; i <= seedsRange.End; i++ {
 		mappedValue := finder(i, mappings)
 
-		println(i, mappedValue)
-
 		if result == -1 || mappedValue < result {
 			result = mappedValue
 		}

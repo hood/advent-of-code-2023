@@ -23,7 +23,7 @@ func ParseSeedsRanges(lines []string) []SeedsRange {
 	ranges := []SeedsRange{}
 
 	for i := 0; i < len(seeds); i += 2 {
-		ranges = append(ranges, SeedsRange{Start: seeds[i], End: seeds[i] + seeds[i+1]})
+		ranges = append(ranges, SeedsRange{Start: seeds[i], End: seeds[i] + seeds[i+1] - 1})
 	}
 
 	return ranges
