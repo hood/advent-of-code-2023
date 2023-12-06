@@ -19,6 +19,12 @@ func GetLocationBySeed(
 	location := -1
 
 	for _, seedSoilPair := range seedsBySoils {
+		lowestMappedSeed := seedSoilPair[0]
+
+		if lowestMappedSeed > seed {
+			break
+		}
+
 		if seedSoilPair[0] != seed {
 			continue
 		}
@@ -30,9 +36,13 @@ func GetLocationBySeed(
 		soil = seed
 	}
 
-	println("Seed", seed, "mapped to soil", soil)
-
 	for _, soilFertilizerPair := range soilsByFertilizers {
+		lowestMappedSoil := soilFertilizerPair[0]
+
+		if lowestMappedSoil > soil {
+			break
+		}
+
 		if soilFertilizerPair[0] != soil {
 			continue
 		}
@@ -45,6 +55,12 @@ func GetLocationBySeed(
 	}
 
 	for _, fertilizerWaterPair := range fertilizersByWaters {
+		lowestMappedFertilizer := fertilizerWaterPair[0]
+
+		if lowestMappedFertilizer > fertilizer {
+			break
+		}
+
 		if fertilizerWaterPair[0] != fertilizer {
 			continue
 		}
@@ -57,6 +73,12 @@ func GetLocationBySeed(
 	}
 
 	for _, waterLightPair := range watersByLights {
+		lowestMappedWater := waterLightPair[0]
+
+		if lowestMappedWater > water {
+			break
+		}
+
 		if waterLightPair[0] != water {
 			continue
 		}
@@ -69,6 +91,12 @@ func GetLocationBySeed(
 	}
 
 	for _, lightTemperaturePair := range lightsByTemperatures {
+		lowestMappedLight := lightTemperaturePair[0]
+
+		if lowestMappedLight > light {
+			break
+		}
+
 		if lightTemperaturePair[0] != light {
 			continue
 		}
@@ -81,6 +109,12 @@ func GetLocationBySeed(
 	}
 
 	for _, temperatureHumidityPair := range temperaturesByHumidities {
+		lowestMappedTemperature := temperatureHumidityPair[0]
+
+		if lowestMappedTemperature > temperature {
+			break
+		}
+
 		if temperatureHumidityPair[0] != temperature {
 			continue
 		}
@@ -93,6 +127,12 @@ func GetLocationBySeed(
 	}
 
 	for _, humidityLocationPair := range humiditiesByLocations {
+		lowestMappedHumidity := humidityLocationPair[0]
+
+		if lowestMappedHumidity > humidity {
+			break
+		}
+
 		if humidityLocationPair[0] != humidity {
 			continue
 		}
