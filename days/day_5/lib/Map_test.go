@@ -4,28 +4,28 @@ import "testing"
 
 func TestMapFindMappingWithValueFound(t *testing.T) {
 	mapping := Map{
-		DestinationRangeStart: 52,
-		SourceRangeStart:      50,
-		RangeLength:           48,
+		DestinationRangeStart: 0,
+		SourceRangeStart:      1,
+		RangeLength:           2,
 	}
 
-	mappingResult := mapping.FindMapping(79)
+	mappingResult := mapping.FindMapping(2)
 
-	if mappingResult != 81 {
-		t.Errorf("Mapping result is not the expected one. Expected: %v, actual: %v", 81, mappingResult)
+	if mappingResult != 1 {
+		t.Errorf("Mapping result is not the expected one. Expected: %v, actual: %v", 1, mappingResult)
 	}
 }
 
 func TestMapFindMappingWithValueNotFound(t *testing.T) {
 	mapping := Map{
-		DestinationRangeStart: 52,
-		SourceRangeStart:      50,
-		RangeLength:           48,
+		DestinationRangeStart: 0,
+		SourceRangeStart:      1,
+		RangeLength:           2,
 	}
 
-	mappingResult := mapping.FindMapping(14)
+	mappingResult := mapping.FindMapping(3)
 
-	if mappingResult != 14 {
-		t.Errorf("Mapping result is not the expected one. Expected: %v, actual: %v", 14, mappingResult)
+	if mappingResult != -1 {
+		t.Errorf("Mapping result is not the expected one. Expected: %v, actual: %v", -1, mappingResult)
 	}
 }

@@ -8,11 +8,11 @@ type Map struct {
 
 func (m *Map) FindMapping(value int) int {
 	if value < m.SourceRangeStart {
-		return value
+		return -1
 	}
 
 	if value >= m.SourceRangeStart+m.RangeLength {
-		return value
+		return -1
 	}
 
 	return m.DestinationRangeStart + (value - m.SourceRangeStart)

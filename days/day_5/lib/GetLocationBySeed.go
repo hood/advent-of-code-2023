@@ -10,13 +10,13 @@ func GetLocationBySeed(
 	soilsByFertilizers []Map,
 	seedsBySoils []Map,
 ) int {
-	soil := FindMappedValue(seed, seedsBySoils)
-	fertilizer := FindMappedValue(soil, soilsByFertilizers)
-	water := FindMappedValue(fertilizer, fertilizersByWaters)
-	light := FindMappedValue(water, watersByLights)
-	temperature := FindMappedValue(light, lightsByTemperatures)
-	humidity := FindMappedValue(temperature, temperaturesByHumidities)
-	location := FindMappedValue(humidity, humiditiesByLocations)
+	soil := FindLowestMappedValue(seed, seedsBySoils)
+	fertilizer := FindLowestMappedValue(soil, soilsByFertilizers)
+	water := FindLowestMappedValue(fertilizer, fertilizersByWaters)
+	light := FindLowestMappedValue(water, watersByLights)
+	temperature := FindLowestMappedValue(light, lightsByTemperatures)
+	humidity := FindLowestMappedValue(temperature, temperaturesByHumidities)
+	location := FindLowestMappedValue(humidity, humiditiesByLocations)
 
 	println(
 		"\n\nseed", seed,
