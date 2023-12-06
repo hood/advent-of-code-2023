@@ -4,5 +4,5 @@ func Day4() {
 	println("\n\n***** Day 4 ****")
 
 	day4Part1()
-	// day4Part2()
+	day4Part2()
 }
