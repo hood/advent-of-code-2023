@@ -6,7 +6,7 @@ func ExtractPartsNumbers(lines []string) []PartNumber {
 	extractor := NewPartExtractor()
 
 	for row, line := range lines {
-		extractor.ResetCapture()
+		extractor.ResetCapture(row)
 
 		for column, char := range line {
 			if extractor.ShouldCapture(char) {
@@ -93,12 +93,12 @@ func (partExtractor *PartExtractor) ShouldCapture(char rune) bool {
 	return char >= '0' && char <= '9'
 }
 
-func (partExtractor *PartExtractor) ResetCapture() {
+func (partExtractor *PartExtractor) ResetCapture(row int) {
 	partExtractor.temporaryAccumulator = ""
 
 	partExtractor.current = PartNumber{
 		Value:       -1,
-		Row:         -1,
+		Row:         row,
 		StartColumn: -1,
 		EndColumn:   -1,
 	}
