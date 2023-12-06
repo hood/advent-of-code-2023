@@ -9,7 +9,7 @@ import (
 func day5Part1() {
 	println("\n\n***** Day 5.1 ****")
 
-	fileContent, error := os.ReadFile("./days/day_5/part_1_test_input.txt")
+	fileContent, error := os.ReadFile("./days/day_5/input.txt")
 	if error != nil {
 		panic(error)
 	}
@@ -71,7 +71,7 @@ func day5Part1() {
 
 	lowestSeedLocation := -1
 
-	for _, seed := range seeds {
+	for index, seed := range seeds {
 		seedLocation := lib.GetLocationBySeed(
 			seed,
 			humiditiesByLocations,
@@ -86,6 +86,8 @@ func day5Part1() {
 		if lowestSeedLocation == -1 || seedLocation < lowestSeedLocation {
 			lowestSeedLocation = seedLocation
 		}
+
+		println("Seed", index, "of", len(seeds), "mapped")
 	}
 
 	println("Result", "->", lowestSeedLocation)

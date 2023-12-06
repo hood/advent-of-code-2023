@@ -30,6 +30,8 @@ func GetLocationBySeed(
 		soil = seed
 	}
 
+	println("Seed", seed, "mapped to soil", soil)
+
 	for _, soilFertilizerPair := range soilsByFertilizers {
 		if soilFertilizerPair[0] != soil {
 			continue
