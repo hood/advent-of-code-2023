@@ -4,7 +4,7 @@ import "fmt"
 
 // Always holds 5 cards.
 type Hand struct {
-	// Cards []Rank
+	Stringified string
 	// Bit mask that represents the ranks of the cards in the hand.
 	ranksPresences uint16
 	// Bit mask that represents the number of times a rank appears in the hand.
@@ -24,7 +24,7 @@ func (h *Hand) AddCard(card rune) {
 	h.ranksPresences = SetBitAt(h.ranksPresences, position)
 	h.ranksOccurrencies = AddBitAt(h.ranksOccurrencies, position)
 
-	h.DebugOccurrencies()
+	h.Stringified += string(card)
 }
 
 func (h *Hand) IsStraight() bool {

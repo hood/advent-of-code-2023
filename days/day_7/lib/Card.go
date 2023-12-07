@@ -65,3 +65,19 @@ var Cards = map[rune]Rank{
 	'3': Trey,
 	'2': Deuce,
 }
+
+var Ranks = map[Rank]rune{
+	Ace:   'A',
+	King:  'K',
+	Queen: 'Q',
+	Jack:  'J',
+	Ten:   'T',
+	Nine:  '9',
+	Eight: '8',
+	Seven: '7',
+	Six:   '6',
+	Five:  '5',
+	Four:  '4',
+	Trey:  '3',
+	Deuce: '2',
+}
