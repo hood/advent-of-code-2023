@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"adventofcode2023/days/shared"
 	"fmt"
 	"strings"
 	"testing"
@@ -26,9 +27,7 @@ func TestSortHandsWithBids(t *testing.T) {
 	expectedStringified := stringifyHands(expected)
 	resultStringified := stringifyHands(input)
 
-	if resultStringified != expectedStringified {
-		t.Errorf("\nGot%v\n\nExpected%v", resultStringified, expectedStringified)
-	}
+	shared.AssertEqual(t, expectedStringified, resultStringified)
 }
 
 func stringifyHands(hands []HandWithBid) string {
