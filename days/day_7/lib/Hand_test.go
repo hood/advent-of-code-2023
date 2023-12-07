@@ -1,9 +1,11 @@
 package lib
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestHandWithFourOfAKind(t *testing.T) {
-	hand := &Hand{}
+	hand := NewHand()
 
 	input := []rune{'9', '9', '9', '9', 'K'}
 
@@ -11,15 +13,16 @@ func TestHandWithFourOfAKind(t *testing.T) {
 		hand.AddCard(card)
 	}
 
+	expected := FourOfAKind
 	result := hand.NumberScore()
 
-	if result <= 0 {
-		t.Errorf("Found %d, expected result > 0", result)
+	if result != expected {
+		t.Errorf("Found %d, expected %v", result, expected)
 	}
 }
 
 func TestHandWithFullHouse(t *testing.T) {
-	hand := &Hand{}
+	hand := NewHand()
 
 	input := []rune{'9', '9', '9', 'K', 'K'}
 
@@ -27,15 +30,16 @@ func TestHandWithFullHouse(t *testing.T) {
 		hand.AddCard(card)
 	}
 
+	expected := FullHouse
 	result := hand.NumberScore()
 
-	if result < 166 {
-		t.Errorf("Found %d, expected result > 166", result)
+	if result != expected {
+		t.Errorf("Found %d, expected %v", result, expected)
 	}
 }
 
 func TestHandWithThreeOfAKind(t *testing.T) {
-	hand := &Hand{}
+	hand := NewHand()
 
 	input := []rune{'9', '9', '9', 'K', '7'}
 
@@ -43,9 +47,10 @@ func TestHandWithThreeOfAKind(t *testing.T) {
 		hand.AddCard(card)
 	}
 
+	expected := ThreeOfAKind
 	result := hand.NumberScore()
 
-	if result < 1609 {
-		t.Errorf("Found %d, expected result > 1609", result)
+	if result != expected {
+		t.Errorf("Found %d, expected %v", result, expected)
 	}
 }

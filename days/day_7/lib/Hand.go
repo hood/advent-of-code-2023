@@ -1,58 +1,83 @@
 package lib
 
-// Always holds 5 cards.
+import (
+	"sort"
+)
+
+const (
+	HighCard = iota
+	OnePair
+	TwoPairs
+	ThreeOfAKind
+	Straight
+	Flush
+	FullHouse
+	FourOfAKind
+)
+
 type Hand struct {
-	Cards []CardInfo
+	// Always holds 5 cards.
+	Cards        []rune
+	occurrencies []int
 }
 
 func NewHand() *Hand {
 	return &Hand{
-		Cards: make([]CardInfo, 0),
+		Cards:        make([]rune, 15, '-'),
+		occurrencies: make([]int, 15),
+	}
+}
+
+func translateCard(card rune) rune {
+	switch card {
+	case 'T':
+		return 10
+
+	case 'J':
+		return 11
+
+	case 'Q':
+		return 12
+
+	case 'K':
+		return 13
+
+	case 'A':
+		return 14
+
+	default:
+		return card - '0'
 	}
 }
 
 func (h *Hand) AddCard(card rune) {
-	h.Cards = append(h.Cards, CardsInfo[card])
+	h.Cards = append(h.Cards, translateCard(card))
+	h.occurrencies[translateCard(card)]++
 }
 
 func (h *Hand) NumberScore() int {
-	result := 1
+	sort.Sort(sort.Reverse(sort.IntSlice(h.occurrencies)))
 
-	for _, card := range h.Cards {
-		result *= card.Value
-	}
+	switch h.occurrencies[0] {
+	case 4:
+		return FourOfAKind
 
-	return result
-}
+	case 3:
+		if h.occurrencies[1] == 2 {
+			return FullHouse
+		}
 
-func (h *Hand) StringScore(numberScore uint64) string {
-	switch {
-	case numberScore > 6185:
-		return "high-card"
+		return ThreeOfAKind
 
-	case numberScore > 3325:
-		return "one-pair"
+	case 2:
+		if h.occurrencies[1] == 2 {
+			return TwoPairs
+		}
 
-	case numberScore > 2467:
-		return "two-pairs"
-
-	case numberScore > 1609:
-		return "three-of-a-kind"
-
-	case numberScore > 1599:
-		return "straight"
-
-	case numberScore > 322:
-		return "flush"
-
-	case numberScore > 166:
-		return "full-house"
-
-	case numberScore > 10:
-		return "four-of-a-kind"
+		return OnePair
 
 	default:
-		return "straight-flush"
+		return HighCard
 	}
 }
 
@@ -60,7 +85,7 @@ func (h *Hand) Stringified() string {
 	result := ""
 
 	for _, card := range h.Cards {
-		result += string(card.Symbol)
+		result += string(card)
 	}
 
 	return result
