@@ -17,7 +17,7 @@ func day7Part1() {
 		handsWithBids[i] = lib.ParseHandWithBid(line)
 	}
 
-	sort.Sort(byscore(handsWithBids))
+	sort.Sort(lib.HandsSorter(handsWithBids))
 
 	result := 0
 
@@ -26,16 +26,4 @@ func day7Part1() {
 	}
 
 	println("Result", "->", result)
-}
-
-type byscore []lib.HandWithBid
-
-func (a byscore) Len() int      { return len(a) }
-func (a byscore) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-func (a byscore) Less(i, j int) bool {
-	if a[i].Hand.Score() != a[j].Hand.Score() {
-		return a[i].Hand.Score() < a[j].Hand.Score()
-	}
-
-	return a[i].Hand.Stringified > a[j].Hand.Stringified
 }
