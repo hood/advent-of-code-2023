@@ -13,11 +13,15 @@ func day6Part1() {
 
 	races := lib.ParseRaces(lines)
 
+	results := [][]int{}
+
 	for _, race := range races {
-		lib.FindWaysToWinRace(&race)
+		results = append(
+			results,
+			lib.FindWaysToWinRace(&race),
+		)
+
 	}
 
-	result := 0
-
-	println("Result", "->", fmt.Sprintf("%v", result))
+	println("Result", "->", fmt.Sprintf("%v", results))
 }
