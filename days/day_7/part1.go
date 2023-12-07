@@ -9,7 +9,7 @@ import (
 func day7Part1() {
 	println("\n\n***** Day 7.1 ****")
 
-	lines := shared.ReadFile("./days/day_7/part_1_test_input.txt")
+	lines := shared.ReadFile("./days/day_7/input.txt")
 
 	handsWithBids := make([]lib.HandWithBid, len(lines))
 
