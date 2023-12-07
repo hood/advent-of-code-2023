@@ -2,82 +2,76 @@ package lib
 
 type Rank uint8
 
-// const (
-// 	Deuce Rank = iota
-// 	Trey
-// 	Four
-// 	Five
-// 	Six
-// 	Seven
-// 	Eight
-// 	Nine
-// 	Ten
-// 	Jack
-// 	Queen
-// 	King
-// 	Ace
-// )
-
-// const (
-// 	Deuce Rank = 12
-// 	Trey  Rank = 11
-// 	Four  Rank = 10
-// 	Five  Rank = 9
-// 	Six   Rank = 8
-// 	Seven Rank = 7
-// 	Eight Rank = 6
-// 	Nine  Rank = 5
-// 	Ten   Rank = 4
-// 	Jack  Rank = 3
-// 	Queen Rank = 2
-// 	King  Rank = 1
-// 	Ace   Rank = iota
-// )
-
-const (
-	Deuce Rank = 3
-	Trey  Rank = 4
-	Four  Rank = 5
-	Five  Rank = 6
-	Six   Rank = 7
-	Seven Rank = 8
-	Eight Rank = 9
-	Nine  Rank = 10
-	Ten   Rank = 11
-	Jack  Rank = 12
-	Queen Rank = 13
-	King  Rank = 14
-	Ace   Rank = 15
-)
-
-var Cards = map[rune]Rank{
-	'A': Ace,
-	'K': King,
-	'Q': Queen,
-	'J': Jack,
-	'T': Ten,
-	'9': Nine,
-	'8': Eight,
-	'7': Seven,
-	'6': Six,
-	'5': Five,
-	'4': Four,
-	'3': Trey,
-	'2': Deuce,
+type CardInfo struct {
+	Symbol rune
+	Rank   int
+	Value  int
 }
 
-var Ranks = map[Rank]rune{
-	Ace:   'A',
-	King:  'K',
-	Queen: 'Q',
-	Jack:  'J',
-	Ten:   'T',
-	Nine:  '9',
-	Eight: '8',
-	Seven: '7',
-	Six:   '6',
-	Five:  '5',
-	Four:  '4',
-	Trey:  '3',
-	Deuce: '2',
+var CardsInfo = map[rune]CardInfo{
+	'A': {
+		Symbol: 'A',
+		Rank:   12,
+		Value:  41,
+	},
+	'K': {
+		Symbol: 'K',
+		Rank:   11,
+		Value:  37,
+	},
+	'Q': {
+		Symbol: 'Q',
+		Rank:   10,
+		Value:  31,
+	},
+	'J': {
+		Symbol: 'J',
+		Rank:   9,
+		Value:  29,
+	},
+	'T': {
+		Symbol: 'T',
+		Rank:   8,
+		Value:  23,
+	},
+	'9': {
+		Symbol: '9',
+		Rank:   7,
+		Value:  19,
+	},
+	'8': {
+		Symbol: '8',
+		Rank:   6,
+		Value:  17,
+	},
+	'7': {
+		Symbol: '7',
+		Rank:   5,
+		Value:  13,
+	},
+	'6': {
+		Symbol: '6',
+		Rank:   4,
+		Value:  11,
+	},
+	'5': {
+		Symbol: '5',
+		Rank:   3,
+		Value:  7,
+	},
+	'4': {
+		Symbol: '4',
+		Rank:   2,
+		Value:  5,
+	},
+	'3': {
+		Symbol: '3',
+		Rank:   1,
+		Value:  3,
+	},
+	'2': {
+		Symbol: '2',
+		Rank:   0,
+		Value:  2,
+	},
 }
