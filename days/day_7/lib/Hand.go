@@ -1,16 +1,18 @@
 package lib
 
+import "fmt"
+
 // Always holds 5 cards.
 type Hand struct {
-	First, Second, Third, Fourth, Fifth Rank
+	Cards []Rank
 }
 
 func (h *Hand) isSuited() bool {
-	return h.First&h.Second&h.Third&h.Fourth&h.Fifth&0xf000 != 0
+	return h.Cards[0]&h.Cards[1]&h.Cards[2]&h.Cards[3]&h.Cards[4]&0xf000 != 0
 }
 
 func (h *Hand) bitMask() int {
-	return int(h.First|h.Second|h.Third|h.Fourth|h.Fifth) >> 16
+	return int(h.Cards[0]|h.Cards[1]|h.Cards[2]|h.Cards[3]|h.Cards[4]) >> 16
 }
 
 func (h *Hand) Score() int {
@@ -23,7 +25,7 @@ func (h *Hand) Score() int {
 	}
 
 	var (
-		k = int((h.First & 0xff) * (h.Second & 0xff) * (h.Third & 0xff) * (h.Fourth & 0xff) * (h.Fifth & 0xff))
+		k = int((h.Cards[0] & 0xff) * (h.Cards[1] & 0xff) * (h.Cards[2] & 0xff) * (h.Cards[3] & 0xff) * (h.Cards[4] & 0xff))
 	)
 	for low, mid, high := 0, 4887>>1, 4887; ; mid = (high + low) >> 1 {
 		if product := Products[mid]; k < product {
@@ -38,24 +40,20 @@ func (h *Hand) Score() int {
 
 func (h *Hand) AddCard(card rune) {
 	switch {
-	case h.First == 0:
-		h.First = Cards[card]
-
-	case h.Second == 0:
-		h.Second = Cards[card]
-
-	case h.Third == 0:
-		h.Third = Cards[card]
-
-	case h.Fourth == 0:
-		h.Fourth = Cards[card]
-
-	case h.Fifth == 0:
-		h.Fifth = Cards[card]
+	case len(h.Cards) < 5:
+		h.Cards = append(h.Cards, Cards[card])
 
 	default:
 		panic("Wtf")
 	}
 
-	println(h.Score())
+	println(h.String())
+}
+
+func (h Hand) String() string {
+	if len(h.Cards) < 5 {
+		return "Not enough cards"
+	}
+
+	return fmt.Sprintf("%04b %04b %04b %04b %04b", h.Cards[0], h.Cards[1], h.Cards[2], h.Cards[3], h.Cards[4])
 }
