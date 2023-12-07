@@ -28,6 +28,28 @@ func NewHand() *Hand {
 	}
 }
 
+func translateBackCardRune(card rune) rune {
+	switch card {
+	case 'E':
+		return 'A'
+
+	case 'D':
+		return 'K'
+
+	case 'C':
+		return 'Q'
+
+	case 'B':
+		return 'J'
+
+	case 'A':
+		return 'T'
+
+	default:
+		return card
+	}
+}
+
 func translateCardValue(card rune) rune {
 	switch card {
 	case 'T':
@@ -52,19 +74,24 @@ func translateCardValue(card rune) rune {
 
 func translateCardRune(card rune) rune {
 	switch card {
-	case 'T':
+	// case 'T':
+	case 'A':
 		return 'E'
 
-	case 'J':
+	// case 'J':
+	case 'K':
 		return 'D'
 
+	// case 'Q':
 	case 'Q':
 		return 'C'
 
-	case 'K':
+	// case 'K':
+	case 'J':
 		return 'B'
 
-	case 'A':
+	// case 'A':
+	case 'T':
 		return 'A'
 
 	default:
@@ -107,7 +134,7 @@ func (h *Hand) Stringified() string {
 	result := ""
 
 	for _, card := range h.Cards {
-		result += string(card)
+		result += string(translateBackCardRune(card))
 	}
 
 	return result
