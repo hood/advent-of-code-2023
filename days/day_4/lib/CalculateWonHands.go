@@ -10,10 +10,8 @@ func CalculateWonHands(hands []Hand) []int {
 	for currentCardIndex := range occurrenciesOfCards {
 		wonByHand := hands[currentCardIndex].WinningNumbers()
 
-		for occurrencyOfCurrentCard := 0; occurrencyOfCurrentCard < occurrenciesOfCards[currentCardIndex]; occurrencyOfCurrentCard++ {
-			for wonIndex := range wonByHand {
-				occurrenciesOfCards[currentCardIndex+(wonIndex+1)]++
-			}
+		for wonIndex := range wonByHand {
+			occurrenciesOfCards[currentCardIndex+(wonIndex+1)] += occurrenciesOfCards[currentCardIndex]
 		}
 	}
 
