@@ -6,13 +6,13 @@ import (
 
 func GetLocationBySeedsRange(
 	seedsRange SeedsRange,
-	seedsBySoils []Map,
-	soilsByFertilizers []Map,
-	fertilizersByWaters []Map,
-	watersByLights []Map,
-	lightsByTemperatures []Map,
-	temperaturesByHumidities []Map,
-	humiditiesByLocations []Map,
+	seedsBySoils *shared.BinarySearchTree[Map],
+	soilsByFertilizers *shared.BinarySearchTree[Map],
+	fertilizersByWaters *shared.BinarySearchTree[Map],
+	watersByLights *shared.BinarySearchTree[Map],
+	lightsByTemperatures *shared.BinarySearchTree[Map],
+	temperaturesByHumidities *shared.BinarySearchTree[Map],
+	humiditiesByLocations *shared.BinarySearchTree[Map],
 ) int {
 	soils := []int{}
 	for i := range shared.Times(seedsRange.End - seedsRange.Start + 1) {

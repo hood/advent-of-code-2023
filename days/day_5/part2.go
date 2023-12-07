@@ -2,8 +2,8 @@ package day_5
 
 import (
 	"adventofcode2023/days/day_5/lib"
+	"adventofcode2023/days/shared"
 	"os"
-	"sort"
 	"strings"
 )
 
@@ -23,7 +23,7 @@ func day5Part2() {
 
 	lines := strings.Split(string(fileContent), "\n")
 
-	maps := map[string][]lib.Map{
+	maps := map[string]*shared.BinarySearchTree[lib.Map]{
 		"seed-to-soil":            {},
 		"soil-to-fertilizer":      {},
 		"fertilizer-to-water":     {},
@@ -37,7 +37,6 @@ func day5Part2() {
 		mapsGroup := lib.GetMapsGroup(lines, mapName)
 
 		maps[mapName] = lib.ParseMaps(mapsGroup)
-		sort.Sort(BySourceRangeStart(maps[mapName]))
 	}
 
 	seedsRanges := lib.ParseSeedsRanges(lines)
@@ -45,6 +44,7 @@ func day5Part2() {
 	lowestSeedLocation := -1
 
 	for i, seedsRange := range seedsRanges {
+
 		seedLocation := lib.GetLocationBySeedsRange(
 			seedsRange,
 			maps["seed-to-soil"],
@@ -61,6 +61,7 @@ func day5Part2() {
 		}
 
 		println("Seeds range", i+1, "of", len(seedsRanges), "result", "->", lowestSeedLocation)
+
 	}
 
 	println("Result", "->", lowestSeedLocation)

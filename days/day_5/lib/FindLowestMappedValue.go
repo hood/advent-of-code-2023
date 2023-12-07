@@ -1,18 +1,16 @@
 package lib
 
-func FindLowestMappedValue(value int, mappings []Map) int {
-	low, high := 0, len(mappings)-1
+import "adventofcode2023/days/shared"
+
+func FindLowestMappedValue(value int, mappings *shared.BinarySearchTree[Map]) int {
 	result := -1
 
-	for low <= high {
-		mid := low + (high-low)/2
+	found, foundValue := mappings.Find(value, func(node *shared.BinarySearchTreeNode[Map]) bool {
+		return node.Value.FindMapping(value) != -1
+	})
 
-		if mappings[mid].SourceRangeStart <= value {
-			result = mappings[mid].FindMapping(value)
-			low = mid + 1
-		} else {
-			high = mid - 1
-		}
+	if found {
+		result = foundValue.FindMapping(value)
 	}
 
 	if result == -1 {

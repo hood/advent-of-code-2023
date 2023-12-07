@@ -17,3 +17,8 @@ func (m *Map) FindMapping(value int) int {
 
 	return m.DestinationRangeStart + (value - m.SourceRangeStart)
 }
+
+// make map comparable
+func (m *Map) LessThan(other interface{}) bool {
+	return m.SourceRangeStart < other.(Map).SourceRangeStart
+}

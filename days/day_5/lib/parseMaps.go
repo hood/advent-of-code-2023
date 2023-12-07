@@ -1,10 +1,12 @@
 package lib
 
-func ParseMaps(mapStrings []string) []Map {
-	maps := make([]Map, len(mapStrings))
+import "adventofcode2023/days/shared"
 
-	for index, mapString := range mapStrings {
-		maps[index] = ParseMap(mapString)
+func ParseMaps(mapStrings []string) *shared.BinarySearchTree[Map] {
+	maps := shared.NewBinarySearchTree[Map]()
+
+	for _, mapString := range mapStrings {
+		maps.Insert(ParseMap(mapString))
 	}
 
 	return maps
