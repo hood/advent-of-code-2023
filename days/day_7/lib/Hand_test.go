@@ -37,3 +37,21 @@ func TestHandWithFullHouse(t *testing.T) {
 		t.Errorf("Found %d, expected %d", result, expected)
 	}
 }
+
+func TestHandWithThreeOfAKind(t *testing.T) {
+	hand := &Hand{}
+
+	input := []rune{'9', '9', '9', 'K', '7'}
+
+	expected := uint64(9)
+
+	for _, card := range input {
+		hand.AddCard(card)
+	}
+
+	result := hand.Score()
+
+	if result != expected {
+		t.Errorf("Found %d, expected %d", result, expected)
+	}
+}
