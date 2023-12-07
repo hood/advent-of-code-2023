@@ -23,6 +23,7 @@ func day7Part1() {
 		result := 0
 
 		for index, handWithBid := range handsWithBids {
+			println(handWithBid.Hand.Stringified())
 			result += handWithBid.Bid * (index + 1)
 		}
 
