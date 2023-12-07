@@ -3,6 +3,7 @@ package day_7
 import (
 	"adventofcode2023/days/day_7/lib"
 	"adventofcode2023/days/shared"
+	"fmt"
 	"sort"
 )
 
@@ -22,6 +23,7 @@ func day7Part1() {
 	result := 0
 
 	for index, handWithBid := range handsWithBids {
+		fmt.Printf("%s -> %d\n", handWithBid.Hand.Stringified(), handWithBid.Hand.NumberScore())
 		result += handWithBid.Bid * (index + 1)
 	}
 

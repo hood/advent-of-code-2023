@@ -28,7 +28,7 @@ func NewHand() *Hand {
 	}
 }
 
-func translateCard(card rune) rune {
+func translateCardValue(card rune) rune {
 	switch card {
 	case 'T':
 		return 10
@@ -50,9 +50,31 @@ func translateCard(card rune) rune {
 	}
 }
 
+func translateCardRune(card rune) rune {
+	switch card {
+	case 'T':
+		return 'E'
+
+	case 'J':
+		return 'D'
+
+	case 'Q':
+		return 'C'
+
+	case 'K':
+		return 'B'
+
+	case 'A':
+		return 'A'
+
+	default:
+		return card
+	}
+}
+
 func (h *Hand) AddCard(card rune) {
-	h.Cards = append(h.Cards, translateCard(card))
-	h.occurrencies[translateCard(card)]++
+	h.Cards = append(h.Cards, translateCardRune(card))
+	h.occurrencies[translateCardValue(card)]++
 }
 
 func (h *Hand) NumberScore() int {
