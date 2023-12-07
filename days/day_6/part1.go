@@ -15,9 +15,7 @@ func day6Part1() {
 	result := 1
 
 	for _, race := range races {
-		for _, win := range lib.FindWaysToWinRace(&race) {
-			result *= win
-		}
+		result *= len(lib.FindWaysToWinRace(&race))
 	}
 
 	println("Result", "->", result)

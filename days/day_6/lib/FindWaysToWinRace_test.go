@@ -48,3 +48,25 @@ func TestFindWaysToWinRace2(t *testing.T) {
 		}
 	}
 }
+
+func TestFindWaysToWinRace3(t *testing.T) {
+	race := Race{
+		Time:     30,
+		Distance: 200,
+	}
+
+	expected := shared.IntegersInRange(11, 19)
+
+	result := FindWaysToWinRace(&race)
+
+	if len(result) != len(expected) {
+		t.Errorf("Expected %v results, got %v results", expected, result)
+	}
+
+	// Since we expect the results to be in order...
+	for i := 0; i < len(result); i++ {
+		if result[i] != expected[i] {
+			t.Errorf("Expected %v, got %v", expected[i], result[i])
+		}
+	}
+}

@@ -15,7 +15,7 @@ func FindWaysToWinRace(race *Race) []int {
 
 		distanceTraveledInRemainingRaceTime := boat.DistanceTraveledInTime(race.Time - buttonPressDuration)
 
-		if distanceTraveledInRemainingRaceTime >= race.Distance {
+		if distanceTraveledInRemainingRaceTime > race.Distance {
 			results = append(results, buttonPressDuration)
 		}
 	}
