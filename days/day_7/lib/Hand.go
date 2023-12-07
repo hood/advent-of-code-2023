@@ -27,6 +27,18 @@ func (h *Hand) AddCard(card rune) {
 	h.DebugOccurrencies()
 }
 
+func (h *Hand) IsStraight() bool {
+	// [5, 6, 7, 8, 9] translates to binary 000001111100000.
+	// We use bitwise AND with the negative of itself to get the least significant bit: 000001111100000 & -000001111100000 = 100000
+	// We divide the original bit field by the LSB which normalizes it: 000001111100000 / 100000 = 11111
+
+	binary := h.ranksOccurrencies
+	lsb := binary & -binary
+	normalized := binary / lsb
+
+	return normalized == 0b11111
+}
+
 func (h *Hand) Score() uint64 {
 	h.DebugPresences()
 	h.DebugOccurrencies()
