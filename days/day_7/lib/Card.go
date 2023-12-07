@@ -1,17 +1,35 @@
 package lib
 
-var Cards = map[rune]uint16{
-	'A': 1,
-	'K': 2,
-	'Q': 3,
-	'J': 4,
-	'T': 5,
-	'9': 6,
-	'8': 7,
-	'7': 8,
-	'6': 9,
-	'5': 10,
-	'4': 11,
-	'3': 12,
-	'2': 13,
+type Rank uint16
+
+const (
+	Deuce Rank = iota
+	Trey
+	Four
+	Five
+	Six
+	Seven
+	Eight
+	Nine
+	Ten
+	Jack
+	Queen
+	King
+	Ace
+)
+
+var Cards = map[rune]Rank{
+	'A': Ace,
+	'K': King,
+	'Q': Queen,
+	'J': Jack,
+	'T': Ten,
+	'9': Nine,
+	'8': Eight,
+	'7': Seven,
+	'6': Six,
+	'5': Five,
+	'4': Four,
+	'3': Trey,
+	'2': Deuce,
 }

@@ -2,7 +2,7 @@ package lib
 
 // Always holds 5 cards.
 type Hand struct {
-	First, Second, Third, Fourth, Fifth uint16
+	First, Second, Third, Fourth, Fifth Rank
 }
 
 func (h *Hand) isSuited() bool {
@@ -26,7 +26,7 @@ func (h *Hand) Score() int {
 		k = int((h.First & 0xff) * (h.Second & 0xff) * (h.Third & 0xff) * (h.Fourth & 0xff) * (h.Fifth & 0xff))
 	)
 	for low, mid, high := 0, 4887>>1, 4887; ; mid = (high + low) >> 1 {
-		if product := products[mid]; k < product {
+		if product := Products[mid]; k < product {
 			high = mid - 1
 		} else if k > product {
 			low = mid + 1
@@ -56,4 +56,6 @@ func (h *Hand) AddCard(card rune) {
 	default:
 		panic("Wtf")
 	}
+
+	println(h.Score())
 }

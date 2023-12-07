@@ -7,7 +7,7 @@ func TestHandWithFourOfAKind(t *testing.T) {
 
 	input := []rune{'9', '9', '9', '9', 'K'}
 
-	expected := uint16(1)
+	expected := int(1)
 
 	for _, card := range input {
 		hand.AddCard(card)
@@ -25,7 +25,7 @@ func TestHandWithFullHouse(t *testing.T) {
 
 	input := []rune{'9', '9', '9', 'K', 'K'}
 
-	expected := uint16(10)
+	expected := int(10)
 
 	for _, card := range input {
 		hand.AddCard(card)
