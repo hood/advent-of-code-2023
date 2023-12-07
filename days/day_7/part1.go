@@ -19,9 +19,13 @@ func day7Part1() {
 
 	sort.Sort(byscore(handsWithBids))
 
-	for _, handWithBid := range handsWithBids {
-		println(handWithBid.Hand.Stringified, handWithBid.Hand.Score(), handWithBid.Bid)
+	result := 0
+
+	for index, handWithBid := range handsWithBids {
+		result += handWithBid.Bid * (index + 1)
 	}
+
+	println("Result", "->", result)
 }
 
 type byscore []lib.HandWithBid
