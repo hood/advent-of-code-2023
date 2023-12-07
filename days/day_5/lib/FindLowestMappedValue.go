@@ -1,22 +1,22 @@
 package lib
 
 func FindLowestMappedValue(value int, mappings []Map) int {
+	low, high := 0, len(mappings)-1
 	result := -1
 
-	for _, mapping := range mappings {
-		mappedValue := mapping.FindMapping(value)
+	for low <= high {
+		mid := low + (high-low)/2
 
-		if mappedValue == -1 {
-			continue
-		}
-
-		if result == -1 || mappedValue < result {
-			result = mappedValue
+		if mappings[mid].SourceRangeStart <= value {
+			result = mappings[mid].FindMapping(value)
+			low = mid + 1
+		} else {
+			high = mid - 1
 		}
 	}
 
 	if result == -1 {
-		result = value
+		return value
 	}
 
 	return result

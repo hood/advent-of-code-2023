@@ -1,6 +1,8 @@
 package lib
 
-import "adventofcode2023/days/shared"
+import (
+	"adventofcode2023/days/shared"
+)
 
 func GetLocationBySeedsRange(
 	seedsRange SeedsRange,

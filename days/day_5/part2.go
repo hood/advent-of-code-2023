@@ -3,8 +3,15 @@ package day_5
 import (
 	"adventofcode2023/days/day_5/lib"
 	"os"
+	"sort"
 	"strings"
 )
+
+type BySourceRangeStart []lib.Map
+
+func (a BySourceRangeStart) Len() int           { return len(a) }
+func (a BySourceRangeStart) Less(i, j int) bool { return a[i].SourceRangeStart < a[j].SourceRangeStart }
+func (a BySourceRangeStart) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 func day5Part2() {
 	println("\n\n***** Day 5.2 ****")
@@ -30,13 +37,14 @@ func day5Part2() {
 		mapsGroup := lib.GetMapsGroup(lines, mapName)
 
 		maps[mapName] = lib.ParseMaps(mapsGroup)
+		sort.Sort(BySourceRangeStart(maps[mapName]))
 	}
 
 	seedsRanges := lib.ParseSeedsRanges(lines)
 
 	lowestSeedLocation := -1
 
-	for _, seedsRange := range seedsRanges {
+	for i, seedsRange := range seedsRanges {
 		seedLocation := lib.GetLocationBySeedsRange(
 			seedsRange,
 			maps["seed-to-soil"],
@@ -51,6 +59,8 @@ func day5Part2() {
 		if lowestSeedLocation == -1 || seedLocation < lowestSeedLocation {
 			lowestSeedLocation = seedLocation
 		}
+
+		println("Seeds range", i+1, "of", len(seedsRanges), "result", "->", lowestSeedLocation)
 	}
 
 	println("Result", "->", lowestSeedLocation)
