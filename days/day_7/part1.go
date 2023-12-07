@@ -11,19 +11,21 @@ func day7Part1() {
 
 	lines := shared.ReadFile("./days/day_7/input.txt")
 
-	handsWithBids := make([]lib.HandWithBid, len(lines))
+	shared.RunSolution(func(callback func(r interface{})) {
+		handsWithBids := make([]lib.HandWithBid, len(lines))
 
-	for i, line := range lines {
-		handsWithBids[i] = lib.ParseHandWithBid(line)
-	}
+		for i, line := range lines {
+			handsWithBids[i] = lib.ParseHandWithBid(line)
+		}
 
-	sort.Sort(lib.HandsSorter(handsWithBids))
+		sort.Sort(lib.HandsSorter(handsWithBids))
 
-	result := 0
+		result := 0
 
-	for index, handWithBid := range handsWithBids {
-		result += handWithBid.Bid * (index + 1)
-	}
+		for index, handWithBid := range handsWithBids {
+			result += handWithBid.Bid * (index + 1)
+		}
 
-	println("Result", "->", result)
+		callback(result)
+	})
 }
