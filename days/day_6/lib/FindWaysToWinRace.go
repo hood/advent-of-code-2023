@@ -10,7 +10,7 @@ func FindWaysToWinRace(race *Race) []int {
 	results := []int{}
 	boat := Boat{}
 
-	for _, buttonPressDuration := range shared.IntegersInRange(0, race.Time) {
+	for _, buttonPressDuration := range shared.IntegersInRange(1, race.Time) {
 		boat.SetSpeed(buttonPressDuration)
 
 		distanceTraveledInRemainingRaceTime := boat.DistanceTraveledInTime(race.Time - buttonPressDuration)
