@@ -27,10 +27,11 @@ func (h *Hand) AddCard(card rune) {
 	h.DebugOccurrencies()
 }
 
-func (h *Hand) Score() uint16 {
+func (h *Hand) Score() uint64 {
 	h.DebugPresences()
 	h.DebugOccurrencies()
-	return 1
+
+	return uint64(h.ranksOccurrencies) % 15
 }
 
 func (h *Hand) DebugPresences() {
