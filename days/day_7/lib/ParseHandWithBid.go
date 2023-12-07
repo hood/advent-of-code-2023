@@ -6,7 +6,7 @@ import (
 )
 
 func ParseHandWithBid(str string) HandWithBid {
-	strs := strings.Split(str, "")
+	strs := strings.Split(str, " ")
 
 	cards := strs[0]
 	bid := shared.ParseInteger(strs[1])
