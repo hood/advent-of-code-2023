@@ -22,10 +22,10 @@ func (h *Hand) Score() int {
 		return s
 	}
 
-	var (
-		k = int((h.First & 0xff) * (h.Second & 0xff) * (h.Third & 0xff) * (h.Fourth & 0xff) * (h.Fifth & 0xff))
-	)
+	k := int((h.First & 0xff) * (h.Second & 0xff) * (h.Third & 0xff) * (h.Fourth & 0xff) * (h.Fifth & 0xff))
 	for low, mid, high := 0, 4887>>1, 4887; ; mid = (high + low) >> 1 {
+		println("MId", mid)
+
 		if product := Products[mid]; k < product {
 			high = mid - 1
 		} else if k > product {
