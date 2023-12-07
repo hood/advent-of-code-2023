@@ -6,34 +6,14 @@ import (
 )
 
 func ParseRaces(lines []string) []Race {
-	times := []int{}
-	distances := []int{}
+	times := shared.ExtractIntegersFromString(strings.Split(lines[0], "Time: ")[1])
+	distances := shared.ExtractIntegersFromString(strings.Split(lines[1], "Distance: ")[1])
 	races := []Race{}
-
-	for _, char := range strings.Split(lines[0], "Time: ")[1] {
-		for _, stringifiedTime := range strings.Split(string(char), " ") {
-			if stringifiedTime == "" {
-				continue
-			}
-
-			times = append(times, shared.ParseInteger(stringifiedTime))
-		}
-	}
-
-	for _, char := range strings.Split(lines[1], "Distance: ")[1] {
-		for _, stringifiedDistance := range strings.Split(string(char), " ") {
-			if stringifiedDistance == "" {
-				continue
-			}
-
-			distances = append(distances, shared.ParseInteger(stringifiedDistance))
-		}
-	}
 
 	for i := 0; i < len(times); i++ {
 		races = append(races, Race{
-			Time:     times[i],
-			Distance: distances[i],
+			Time:     times[i].Value,
+			Distance: distances[i].Value,
 		})
 	}
 
