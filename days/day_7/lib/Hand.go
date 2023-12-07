@@ -14,7 +14,7 @@ type Hand struct {
 func NewHand() *Hand {
 	return &Hand{
 		ranksPresences:    0b0000000000000000,
-		ranksOccurrencies: 0b0000000000000000,
+		ranksOccurrencies: 0b0000000000000000000000000000000000000000000000000000000000000,
 	}
 }
 
@@ -24,6 +24,7 @@ func (h *Hand) AddCard(card rune) {
 	h.ranksPresences = SetBitAt(h.ranksPresences, position)
 	h.ranksOccurrencies = AddBitAt(h.ranksOccurrencies, position)
 
+	h.DebugOccurrencies()
 }
 
 func (h *Hand) Score() uint16 {
