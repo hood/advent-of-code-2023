@@ -91,6 +91,8 @@ func translateBackCardRune(card rune) rune {
 		return 'Q'
 
 	case 'B':
+		return 'J'
+
 	case '.':
 		return 'J'
 
