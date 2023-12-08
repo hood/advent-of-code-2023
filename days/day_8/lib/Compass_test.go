@@ -2,6 +2,7 @@ package lib
 
 import (
 	"adventofcode2023/days/shared"
+	"fmt"
 	"testing"
 )
 
@@ -11,9 +12,9 @@ func TestCompass(t *testing.T) {
 
 	expected := []rune{'L', 'L', 'R', 'L', 'L', 'R'}
 
-	for _, expectedRune := range expected {
+	for step, expectedRune := range expected {
 		next := c.NextDirection()
 
-		shared.AssertEqual(t, string(expectedRune), string(next))
+		shared.AssertEqual(t, string(expectedRune), string(next), fmt.Sprintf("Step %v", step))
 	}
 }
