@@ -6,37 +6,45 @@ type Node struct {
 	Right *Node
 }
 
-func (n *Node) AddLeft(node Node) {
-	n.Left = &node
+func (n *Node) AddLeft(ID string) {
+	n.Left = &Node{
+		ID: ID,
+	}
 }
 
-func (n *Node) AddRight(node Node) {
-	n.Right = &node
+func (n *Node) AddRight(ID string) {
+	n.Right = &Node{
+		ID: ID,
+	}
 }
 
-func Bfs(head *Node, target string) *Node {
-	// Find the node with the given id, then populate left and right.
+func Bfs(head *Node, target string) (bool, int, *Node) {
 	current := head
 
 	if current.ID == "" {
-		head = &Node{
-			ID: target,
-		}
+		return false, -1, nil
 	}
 
-	toVisitQueue := []*Node{
-		current,
-	}
-	visitedList := []*Node{}
+	toVisitQueue := make([]*Node, 0)
+	visitedList := make([]*Node, 0)
+
+	toVisitQueue = append(toVisitQueue, head)
+
+	level := 0
 
 	for len(toVisitQueue) > 0 {
+		level++
+
+		// Dequeue.
 		n := toVisitQueue[0]
+		toVisitQueue = toVisitQueue[1:]
 
 		// Mark as visited.
 		visitedList = append(visitedList, n)
 
-		// Dequeue.
-		toVisitQueue = toVisitQueue[1:]
+		if n.ID == target {
+			return true, level, n
+		}
 
 		if n.Left != nil {
 			toVisitQueue = append(toVisitQueue, n.Left)
@@ -47,79 +55,5 @@ func Bfs(head *Node, target string) *Node {
 		}
 	}
 
-	return current
+	return true, level, current
 }
-
-// type Map struct {
-// 	Head Node
-// }
-
-// func NewMap(head Node) *Map {
-// 	return &Map{
-// 		Head: head,
-// 	}
-// }
-
-// type NodeWithLevel struct {
-// 	Node  *Node
-// 	Level int
-// }
-
-// // https://faun.pub/2-different-ways-to-implement-bfs-in-golang-8399f5d2452d
-// func (m *Map) Find(nodeID string) *Node {
-// 	// Find the node with the given id, then populate left and right.
-// 	current := m.Head
-
-// 	if current.ID == "" {
-// 		m.Head = Node{
-// 			ID: nodeID,
-// 		}
-// 	}
-
-// 	toVisitQueue := []NodeWithLevel{
-// 		{
-// 			Node:  &current,
-// 			Level: 0,
-// 		},
-// 	}
-// 	visitedList := []NodeWithLevel{}
-
-// 	for len(toVisitQueue) > 0 {
-// 		n := toVisitQueue[0]
-
-// 		// Mark as visited.
-// 		visitedList = append(visitedList, n)
-
-// 		// Dequeue.
-// 		toVisitQueue = toVisitQueue[1:]
-
-// 		if n.Node.Left != nil {
-// 			left := NodeWithLevel{
-// 				Node:  n.Node.Left,
-// 				Level: n.Level + 1,
-// 			}
-
-// 			toVisitQueue = append(toVisitQueue, left)
-
-// 			right := NodeWithLevel{
-// 				Node:  n.Node.Right,
-// 				Level: n.Level + 1,
-// 			}
-
-// 			toVisitQueue = append(toVisitQueue, right)
-// 		}
-// 	}
-
-// 	return &current
-// }
-
-// raw input looks like this.
-// for example node AAA has left = BBB, right = CCC,
-// node BBB has left = DDD, right = EEE, etc.
-// AAA = (BBB, CCC)
-// BBB = (DDD, EEE)
-// CCC = (ZZZ, GGG)
-// DDD = (DDD, DDD)
-// EEE = (EEE, EEE)
-// GGG = (GGG, GGG)
-// ZZZ = (ZZZ, ZZZ)
