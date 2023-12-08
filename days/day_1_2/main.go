@@ -12,8 +12,6 @@ var stringifiedDigits = []string{"one", "two", "three", "four", "five", "six", "
 
 // Day1.2 entry point.
 func Entry() {
-	println("\n\n***** Day 2 ****")
-
 	fileContent, error := os.ReadFile("./days/day_1_2/input.txt")
 	if error != nil {
 		panic(error)
