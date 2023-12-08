@@ -23,7 +23,7 @@ func (n *Node) AddRight(ID string) {
 func Bfs(head *Node, target string) (bool, int, *Node) {
 	current := head
 
-	if current.ID == "" {
+	if current == nil || current.ID == "" {
 		return false, -1, nil
 	}
 
