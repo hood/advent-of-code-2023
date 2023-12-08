@@ -11,7 +11,7 @@ func (a HandsSorter) Less(i, j int) bool {
 		return a[i].Hand.NumberScore() < a[j].Hand.NumberScore()
 	}
 
-	return a[i].Hand.Stringified() > a[j].Hand.Stringified()
+	return a[i].Hand.Stringified() < a[j].Hand.Stringified()
 }
 
 func SortHandsWithBids(hands []HandWithBid) {

@@ -18,4 +18,5 @@ func RunSolution(solution func(callback func(r interface{}))) {
 		clipboard.Init()
 		clipboard.Write(clipboard.FmtText, []byte(fmt.Sprintf("%v", result)))
 	})
+
 }

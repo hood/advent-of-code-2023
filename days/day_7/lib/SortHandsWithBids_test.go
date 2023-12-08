@@ -30,12 +30,35 @@ func TestSortHandsWithBids(t *testing.T) {
 	shared.AssertEqual(t, expectedStringified, resultStringified)
 }
 
+func TestSortHandsWithBidsWithEqualScoreHands(t *testing.T) {
+	input := []HandWithBid{
+		ParseHandWithBid("11111 0"),
+		ParseHandWithBid("AAAAA 0"),
+		ParseHandWithBid("22222 0"),
+		ParseHandWithBid("JJJJJ 0"),
+	}
+
+	expected := []HandWithBid{
+		ParseHandWithBid("AAAAA 0"),
+		ParseHandWithBid("JJJJJ 0"),
+		ParseHandWithBid("22222 0"),
+		ParseHandWithBid("11111 0"),
+	}
+
+	SortHandsWithBids(input)
+
+	expectedStringified := stringifyHands(expected)
+	resultStringified := stringifyHands(input)
+
+	shared.AssertEqual(t, expectedStringified, resultStringified)
+}
+
 func stringifyHands(hands []HandWithBid) string {
 	var builder strings.Builder
 
 	for _, hand := range hands {
 		builder.WriteString("\n")
-		builder.WriteString(hand.Hand.Stringified())
+		builder.WriteString(hand.Hand.DebugStringified())
 		builder.WriteString("	")
 		builder.WriteString(fmt.Sprintf("%v", hand.Hand.NumberScore()))
 	}

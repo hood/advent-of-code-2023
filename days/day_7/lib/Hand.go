@@ -7,7 +7,7 @@ import (
 const (
 	HighCard = iota
 	OnePair
-	TwoPair
+	TwoPairs
 	ThreeOfAKind
 	FullHouse
 	FourOfAKind
@@ -24,28 +24,6 @@ func NewHand() *Hand {
 	return &Hand{
 		Cards:        make([]rune, 15, '-'),
 		occurrencies: make([]int, 15),
-	}
-}
-
-func translateBackCardRune(card rune) rune {
-	switch card {
-	case 'E':
-		return 'A'
-
-	case 'D':
-		return 'K'
-
-	case 'C':
-		return 'Q'
-
-	case 'B':
-		return 'J'
-
-	case 'A':
-		return 'T'
-
-	default:
-		return card
 	}
 }
 
@@ -73,25 +51,42 @@ func translateCardValue(card rune) rune {
 
 func translateCardRune(card rune) rune {
 	switch card {
-	// case 'T':
-	case 'A':
-		return 'E'
+	case 'T':
+		return 'A'
 
-	// case 'J':
-	case 'K':
-		return 'D'
-
-	// case 'Q':
-	case 'Q':
-		return 'C'
-
-	// case 'K':
 	case 'J':
 		return 'B'
 
-	// case 'A':
-	case 'T':
+	case 'Q':
+		return 'C'
+
+	case 'K':
+		return 'D'
+
+	case 'A':
+		return 'E'
+
+	default:
+		return card
+	}
+}
+
+func translateBackCardRune(card rune) rune {
+	switch card {
+	case 'E':
 		return 'A'
+
+	case 'D':
+		return 'K'
+
+	case 'C':
+		return 'Q'
+
+	case 'B':
+		return 'J'
+
+	case 'A':
+		return 'T'
 
 	default:
 		return card
@@ -122,7 +117,7 @@ func (h *Hand) NumberScore() int {
 
 	case 2:
 		if h.occurrencies[1] == 2 {
-			return TwoPair
+			return TwoPairs
 		}
 
 		return OnePair
@@ -133,6 +128,16 @@ func (h *Hand) NumberScore() int {
 }
 
 func (h *Hand) Stringified() string {
+	result := ""
+
+	for _, card := range h.Cards {
+		result += string(card)
+	}
+
+	return result
+}
+
+func (h *Hand) DebugStringified() string {
 	result := ""
 
 	for _, card := range h.Cards {
