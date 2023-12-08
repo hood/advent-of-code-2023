@@ -19,8 +19,8 @@ func day8Part1() {
 
 		myMap := lib.MapFromLines(lines)
 
-		resultFound, resultLevel, resultNode := lib.Bfs(myMap.Head, "ZZZ")
-		if resultFound == false || resultNode.ID != "ZZZ" {
+		resultFound, resultLevel := lib.FindInMapWithCompass(myMap, compass, "ZZZ")
+		if resultFound == false {
 			panic("Node `ZZZ` not found!")
 		}
 
