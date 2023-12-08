@@ -37,10 +37,6 @@ func translateCardValue(card rune, jokerMode bool) rune {
 		return 10
 
 	case 'J':
-		if jokerMode {
-			return 1
-		}
-
 		return 11
 
 	case 'Q':
@@ -57,12 +53,16 @@ func translateCardValue(card rune, jokerMode bool) rune {
 	}
 }
 
-func translateCardRune(card rune) rune {
+func translateCardRune(card rune, jokerMode bool) rune {
 	switch card {
 	case 'T':
 		return 'A'
 
 	case 'J':
+		if jokerMode {
+			return '.'
+		}
+
 		return 'B'
 
 	case 'Q':
@@ -91,6 +91,7 @@ func translateBackCardRune(card rune) rune {
 		return 'Q'
 
 	case 'B':
+	case '.':
 		return 'J'
 
 	case 'A':
@@ -102,10 +103,12 @@ func translateBackCardRune(card rune) rune {
 }
 
 func (h *Hand) AddCard(card rune) {
-	h.Cards = append(h.Cards, translateCardRune(card))
+	h.Cards = append(h.Cards, translateCardRune(card, h.JokerMode))
 
 	if h.JokerMode && card == 'J' {
 		h.Jokers++
+
+		return
 	}
 
 	h.occurrencies[translateCardValue(card, h.JokerMode)]++
