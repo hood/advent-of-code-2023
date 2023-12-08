@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"sort"
 )
 
@@ -18,21 +19,28 @@ type Hand struct {
 	// Always holds 5 cards.
 	Cards        []rune
 	occurrencies []int
+	JokerMode    bool
+	Jokers       int
 }
 
-func NewHand() *Hand {
+func NewHand(jokerMode bool) *Hand {
 	return &Hand{
 		Cards:        make([]rune, 15, '-'),
 		occurrencies: make([]int, 15),
+		JokerMode:    jokerMode,
 	}
 }
 
-func translateCardValue(card rune) rune {
+func translateCardValue(card rune, jokerMode bool) rune {
 	switch card {
 	case 'T':
 		return 10
 
 	case 'J':
+		if jokerMode {
+			return 1
+		}
+
 		return 11
 
 	case 'Q':
@@ -95,13 +103,23 @@ func translateBackCardRune(card rune) rune {
 
 func (h *Hand) AddCard(card rune) {
 	h.Cards = append(h.Cards, translateCardRune(card))
-	h.occurrencies[translateCardValue(card)]++
+
+	if h.JokerMode && card == 'J' {
+		h.Jokers++
+	}
+
+	h.occurrencies[translateCardValue(card, h.JokerMode)]++
 }
 
 func (h *Hand) NumberScore() int {
 	sort.Sort(sort.Reverse(sort.IntSlice(h.occurrencies)))
 
-	switch h.occurrencies[0] {
+	maxOccurrency := h.occurrencies[0]
+	if h.JokerMode {
+		maxOccurrency += h.Jokers
+	}
+
+	switch maxOccurrency {
 	case 5:
 		return FiveOfAKind
 
@@ -142,6 +160,36 @@ func (h *Hand) DebugStringified() string {
 
 	for _, card := range h.Cards {
 		result += string(translateBackCardRune(card))
+	}
+
+	if h.JokerMode {
+		result += " (" + fmt.Sprint(h.Jokers) + " jokers)"
+	}
+
+	switch h.NumberScore() {
+	case FiveOfAKind:
+		result += " FiveOfAKind"
+
+	case FourOfAKind:
+		result += " FourOfAKind"
+
+	case FullHouse:
+		result += " FullHouse"
+
+	case ThreeOfAKind:
+		result += " ThreeOfAKind"
+
+	case TwoPairs:
+		result += " TwoPairs"
+
+	case OnePair:
+		result += " OnePair"
+
+	case HighCard:
+		result += " HighCard"
+
+	default:
+		result += " Unknown"
 	}
 
 	return result

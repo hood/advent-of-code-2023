@@ -9,17 +9,17 @@ import (
 
 func TestSortHandsWithBids(t *testing.T) {
 	input := []HandWithBid{
-		ParseHandWithBid("KKKK9 0"),
-		ParseHandWithBid("KKK99 0"),
-		ParseHandWithBid("KK992 0"),
-		ParseHandWithBid("AJ942 0"),
+		ParseHandWithBid("KKKK9 0", false),
+		ParseHandWithBid("KKK99 0", false),
+		ParseHandWithBid("KK992 0", false),
+		ParseHandWithBid("AJ942 0", false),
 	}
 
 	expected := []HandWithBid{
-		ParseHandWithBid("AJ942 0"),
-		ParseHandWithBid("KK992 0"),
-		ParseHandWithBid("KKK99 0"),
-		ParseHandWithBid("KKKK9 0"),
+		ParseHandWithBid("AJ942 0", false),
+		ParseHandWithBid("KK992 0", false),
+		ParseHandWithBid("KKK99 0", false),
+		ParseHandWithBid("KKKK9 0", false),
 	}
 
 	SortHandsWithBids(input)
@@ -32,17 +32,42 @@ func TestSortHandsWithBids(t *testing.T) {
 
 func TestSortHandsWithBidsWithEqualScoreHands(t *testing.T) {
 	input := []HandWithBid{
-		ParseHandWithBid("11111 0"),
-		ParseHandWithBid("AAAAA 0"),
-		ParseHandWithBid("22222 0"),
-		ParseHandWithBid("JJJJJ 0"),
+		ParseHandWithBid("11111 0", false),
+		ParseHandWithBid("AAAAA 0", false),
+		ParseHandWithBid("22222 0", false),
+		ParseHandWithBid("JJJJJ 0", false),
 	}
 
 	expected := []HandWithBid{
-		ParseHandWithBid("11111 0"),
-		ParseHandWithBid("22222 0"),
-		ParseHandWithBid("JJJJJ 0"),
-		ParseHandWithBid("AAAAA 0"),
+		ParseHandWithBid("11111 0", false),
+		ParseHandWithBid("22222 0", false),
+		ParseHandWithBid("JJJJJ 0", false),
+		ParseHandWithBid("AAAAA 0", false),
+	}
+
+	SortHandsWithBids(input)
+
+	expectedStringified := stringifyHands(expected)
+	resultStringified := stringifyHands(input)
+
+	shared.AssertEqual(t, expectedStringified, resultStringified)
+}
+
+func TestSortHandsWithBidsWithJokers(t *testing.T) {
+	input := []HandWithBid{
+		ParseHandWithBid("32T3K -1", true),
+		ParseHandWithBid("T55J5 -1", true),
+		ParseHandWithBid("KK677 -1", true),
+		ParseHandWithBid("KTJJT -1", true),
+		ParseHandWithBid("QQQJA -1", true),
+	}
+
+	expected := []HandWithBid{
+		ParseHandWithBid("32T3K -1", true),
+		ParseHandWithBid("KK677 -1", true),
+		ParseHandWithBid("T55J5 -1", true),
+		ParseHandWithBid("QQQJA -1", true),
+		ParseHandWithBid("KTJJT -1", true),
 	}
 
 	SortHandsWithBids(input)

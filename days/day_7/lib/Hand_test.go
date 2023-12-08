@@ -5,7 +5,7 @@ import (
 )
 
 func TestHandWithFourOfAKind(t *testing.T) {
-	hand := NewHand()
+	hand := NewHand(false)
 
 	input := []rune{'9', '9', '9', '9', 'K'}
 
@@ -22,7 +22,7 @@ func TestHandWithFourOfAKind(t *testing.T) {
 }
 
 func TestHandWithFullHouse(t *testing.T) {
-	hand := NewHand()
+	hand := NewHand(false)
 
 	input := []rune{'9', '9', '9', 'K', 'K'}
 
@@ -39,7 +39,7 @@ func TestHandWithFullHouse(t *testing.T) {
 }
 
 func TestHandWithThreeOfAKind(t *testing.T) {
-	hand := NewHand()
+	hand := NewHand(false)
 
 	input := []rune{'9', '9', '9', 'K', '7'}
 

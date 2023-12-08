@@ -15,7 +15,7 @@ func day7Part1() {
 		handsWithBids := make([]lib.HandWithBid, len(lines))
 
 		for i, line := range lines {
-			handsWithBids[i] = lib.ParseHandWithBid(line)
+			handsWithBids[i] = lib.ParseHandWithBid(line, false)
 		}
 
 		sort.Sort(lib.HandsSorter(handsWithBids))
