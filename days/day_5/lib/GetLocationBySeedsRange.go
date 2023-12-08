@@ -20,42 +20,23 @@ func GetLocationBySeedsRange(
 		soils = append(soils, r)
 	}
 
-	fertilizers := []int{}
-	for _, soil := range soils {
-		r := FindLowestMappedValue(soil, soilsByFertilizers)
-		fertilizers = append(fertilizers, r)
-	}
-
-	waters := []int{}
-	for _, fertilizer := range fertilizers {
-		r := FindLowestMappedValue(fertilizer, fertilizersByWaters)
-		waters = append(waters, r)
-	}
-
-	lights := []int{}
-	for _, water := range waters {
-		r := FindLowestMappedValue(water, watersByLights)
-		lights = append(lights, r)
-
-	}
-
-	temperatures := []int{}
-	for _, light := range lights {
-		r := FindLowestMappedValue(light, lightsByTemperatures)
-		temperatures = append(temperatures, r)
-	}
-
-	humidities := []int{}
-	for _, temperature := range temperatures {
-		r := FindLowestMappedValue(temperature, temperaturesByHumidities)
-		humidities = append(humidities, r)
-	}
-
-	locations := []int{}
-	for _, humidity := range humidities {
-		r := FindLowestMappedValue(humidity, humiditiesByLocations)
-		locations = append(locations, r)
-	}
+	fertilizers := getMappings(soils, soilsByFertilizers)
+	waters := getMappings(fertilizers, fertilizersByWaters)
+	lights := getMappings(waters, watersByLights)
+	temperatures := getMappings(lights, lightsByTemperatures)
+	humidities := getMappings(temperatures, temperaturesByHumidities)
+	locations := getMappings(humidities, humiditiesByLocations)
 
 	return shared.FindLowestInteger(locations)
+}
+
+func getMappings(points []int, maps []Map) []int {
+	mappings := []int{}
+
+	for _, point := range points {
+		r := FindLowestMappedValue(point, maps)
+		mappings = append(mappings, r)
+	}
+
+	return mappings
 }
