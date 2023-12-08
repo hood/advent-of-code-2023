@@ -1,17 +1,29 @@
 package day_8
 
 import (
+	"adventofcode2023/days/day_8/lib"
 	"adventofcode2023/days/shared"
 )
 
 func day8Part1() {
 	println("\n\n***** Day 8.1 ****")
 
-	// lines := shared.ReadFile("./days/day_8/input.txt")
+	lines := shared.ReadFile("./days/day_8/input.txt")
 
 	shared.RunSolution(func(callback func(r interface{})) {
+		compass := lib.NewCompass()
+		compass.FromLine(lines[0])
 
-		result := 0
-		callback(result)
+		// Bump by two because there's a newline separator.
+		lines = lines[2:]
+
+		myMap := lib.MapFromLines(lines)
+
+		resultFound, resultLevel, resultNode := lib.Bfs(myMap.Head, "ZZZ")
+		if resultFound == false || resultNode.ID != "ZZZ" {
+			panic("Node `ZZZ` not found!")
+		}
+
+		callback(resultLevel)
 	})
 }

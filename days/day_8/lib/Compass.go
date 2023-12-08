@@ -5,9 +5,9 @@ type Compass struct {
 	step  int
 }
 
-func NewCompass(order []rune) *Compass {
+func NewCompass() *Compass {
 	return &Compass{
-		Order: order,
+		Order: make([]rune, 0),
 	}
 }
 
@@ -19,4 +19,12 @@ func (c *Compass) NextDirection() rune {
 	}
 
 	return c.Order[c.step]
+}
+
+func (c *Compass) FromLine(line string) *Compass {
+	for _, char := range line {
+		c.Order = append(c.Order, char)
+	}
+
+	return c
 }
