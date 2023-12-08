@@ -38,12 +38,36 @@ func GetLocationBySeedsRange(
 }
 
 func getMappings(points []int, maps []Map) []int {
-	mappings := []int{}
+	mappings := make([]int, 0)
 
-	for _, point := range points {
-		r := FindLowestMappedValue(point, maps)
-		mappings = append(mappings, r)
+	stepSize := 1000000
+	i := 0
+
+	// Try to iterate over the points with a large step size to avoid calculating
+	// obvious mappings. If the mappings start to differ, reduce the step size
+	// and try again.
+	for i*stepSize < len(points) {
+		if i > 1 &&
+			mappings[i-1]-mappings[i-2] != stepSize &&
+			stepSize > 1 {
+			if stepSize < 1 {
+				panic("WTF")
+			}
+
+			stepSize = stepSize / 10
+
+			continue
+		}
+
+		mappings = append(mappings, FindLowestMappedValue(points[i*stepSize], maps))
+
+		i++
 	}
+
+	// for _, point := range points {
+	// 	r := FindLowestMappedValue(point, maps)
+	// 	mappings = append(mappings, r)
+	// }
 
 	return mappings
 }

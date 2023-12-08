@@ -17,9 +17,9 @@ func day8Part1() {
 		// Bump by two because there's a newline separator.
 		lines = lines[2:]
 
-		myMap := lib.MapFromLines(lines)
+		hashMap := lib.HashMapFromLines(lines)
 
-		resultFound, resultLevel := lib.FindInMapWithCompass(myMap, compass, "ZZZ")
+		resultFound, resultLevel := lib.FindInHashMapWithCompass(hashMap, compass, "ZZZ")
 		if resultFound == false {
 			panic("Node `ZZZ` not found!")
 		}
