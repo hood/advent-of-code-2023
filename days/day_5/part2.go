@@ -2,6 +2,7 @@ package day_5
 
 import (
 	"adventofcode2023/days/day_5/lib"
+	"adventofcode2023/days/shared"
 	"os"
 	"sort"
 	"strings"
@@ -23,51 +24,48 @@ func day5Part2() {
 
 	lines := strings.Split(string(fileContent), "\n")
 
-	maps := map[string][]lib.Map{
-		"seed-to-soil":            {},
-		"soil-to-fertilizer":      {},
-		"fertilizer-to-water":     {},
-		"water-to-light":          {},
-		"light-to-temperature":    {},
-		"temperature-to-humidity": {},
-		"humidity-to-location":    {},
-	}
-
-	for mapName := range maps {
-		mapsGroup := lib.GetMapsGroup(lines, mapName)
-
-		maps[mapName] = lib.ParseMaps(mapsGroup)
-		sort.Sort(BySourceRangeStart(maps[mapName]))
-	}
-
-	seedsRanges := lib.ParseSeedsRanges(lines)
-
-	lowestSeedLocation := -1
-
-	for i, seedsRange := range seedsRanges {
-		lower, _ := lib.GetMappingsDestinationsBounds(maps["humidity-to-location"])
-
-		if lowestSeedLocation != -1 && lowestSeedLocation < lower {
-			continue
+	shared.RunSolution(func(callback func(r interface{})) {
+		maps := map[string][]lib.Map{
+			"seed-to-soil":            {},
+			"soil-to-fertilizer":      {},
+			"fertilizer-to-water":     {},
+			"water-to-light":          {},
+			"light-to-temperature":    {},
+			"temperature-to-humidity": {},
+			"humidity-to-location":    {},
 		}
 
-		seedLocation := lib.GetLocationBySeedsRange(
-			seedsRange,
-			maps["seed-to-soil"],
-			maps["soil-to-fertilizer"],
-			maps["fertilizer-to-water"],
-			maps["water-to-light"],
-			maps["light-to-temperature"],
-			maps["temperature-to-humidity"],
-			maps["humidity-to-location"],
-		)
+		for mapName := range maps {
+			mapsGroup := lib.GetMapsGroup(lines, mapName)
 
-		if lowestSeedLocation == -1 || seedLocation < lowestSeedLocation {
-			lowestSeedLocation = seedLocation
+			maps[mapName] = lib.ParseMaps(mapsGroup)
+			sort.Sort(BySourceRangeStart(maps[mapName]))
 		}
 
-		println("Seeds range", i+1, "of", len(seedsRanges), "result", "->", lowestSeedLocation)
-	}
+		seedsRanges := lib.ParseSeedsRanges(lines)
 
-	println("Result", "->", lowestSeedLocation)
+		lowestSeedLocation := -1
+
+		for i, seedsRange := range seedsRanges {
+			seedLocation := lib.GetLocationBySeedsRange(
+				seedsRange,
+				maps["seed-to-soil"],
+				maps["soil-to-fertilizer"],
+				maps["fertilizer-to-water"],
+				maps["water-to-light"],
+				maps["light-to-temperature"],
+				maps["temperature-to-humidity"],
+				maps["humidity-to-location"],
+				lowestSeedLocation,
+			)
+
+			if lowestSeedLocation == -1 || seedLocation < lowestSeedLocation {
+				lowestSeedLocation = seedLocation
+			}
+
+			println("Seeds range", i+1, "of", len(seedsRanges), "result", "->", lowestSeedLocation)
+		}
+
+		callback(lowestSeedLocation)
+	})
 }

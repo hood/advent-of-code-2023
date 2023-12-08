@@ -13,6 +13,7 @@ func GetLocationBySeedsRange(
 	lightsByTemperatures []Map,
 	temperaturesByHumidities []Map,
 	humiditiesByLocations []Map,
+	lowestSeedLocation int,
 ) int {
 	soils := []int{}
 	for i := range shared.Times(seedsRange.End - seedsRange.Start + 1) {
@@ -25,6 +26,12 @@ func GetLocationBySeedsRange(
 	lights := getMappings(waters, watersByLights)
 	temperatures := getMappings(lights, lightsByTemperatures)
 	humidities := getMappings(temperatures, temperaturesByHumidities)
+
+	if lowestSeedLocation != -1 &&
+		lowestSeedLocation < humiditiesByLocations[0].SourceRangeStart {
+		return lowestSeedLocation
+	}
+
 	locations := getMappings(humidities, humiditiesByLocations)
 
 	return shared.FindLowestInteger(locations)
