@@ -7,8 +7,9 @@ import (
 const (
 	HighCard = iota
 	OnePair
-	TwoPairs
+	TwoPair
 	ThreeOfAKind
+	FullHouse
 	FourOfAKind
 	FiveOfAKind
 )
@@ -113,11 +114,15 @@ func (h *Hand) NumberScore() int {
 		return FourOfAKind
 
 	case 3:
+		if h.occurrencies[1] == 2 {
+			return FullHouse
+		}
+
 		return ThreeOfAKind
 
 	case 2:
 		if h.occurrencies[1] == 2 {
-			return TwoPairs
+			return TwoPair
 		}
 
 		return OnePair
