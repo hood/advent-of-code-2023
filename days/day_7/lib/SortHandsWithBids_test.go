@@ -39,10 +39,10 @@ func TestSortHandsWithBidsWithEqualScoreHands(t *testing.T) {
 	}
 
 	expected := []HandWithBid{
-		ParseHandWithBid("AAAAA 0"),
-		ParseHandWithBid("JJJJJ 0"),
-		ParseHandWithBid("22222 0"),
 		ParseHandWithBid("11111 0"),
+		ParseHandWithBid("22222 0"),
+		ParseHandWithBid("JJJJJ 0"),
+		ParseHandWithBid("AAAAA 0"),
 	}
 
 	SortHandsWithBids(input)
