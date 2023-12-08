@@ -8,16 +8,12 @@ type Node struct {
 	Right *Node
 }
 
-func (n *Node) AddLeft(ID string) {
-	n.Left = &Node{
-		ID: ID,
-	}
+func (n *Node) AddLeft(node *Node) {
+	n.Left = node
 }
 
-func (n *Node) AddRight(ID string) {
-	n.Right = &Node{
-		ID: ID,
-	}
+func (n *Node) AddRight(node *Node) {
+	n.Right = node
 }
 
 func Bfs(head *Node, target string) (bool, int, *Node) {
@@ -66,7 +62,29 @@ type Map struct {
 
 func MapFromLines(lines []string) *Map {
 	myMap := &Map{}
+	nodes := make(map[string]*Node)
 
+	// Build nodes.
+	for _, line := range lines {
+		if line == "" {
+			continue
+		}
+
+		nodeID := strings.Split(line, " = ")[0]
+
+		_, existingNodeFound := nodes[nodeID]
+		if existingNodeFound == false {
+			nodes[nodeID] = &Node{
+				ID: nodeID,
+			}
+
+			if myMap.Head == nil {
+				myMap.Head = nodes[nodeID]
+			}
+		}
+	}
+
+	// Build edges.
 	for _, line := range lines {
 		if line == "" {
 			continue
@@ -82,23 +100,16 @@ func MapFromLines(lines []string) *Map {
 		left = strings.Split(left, "(")[1]
 		right = strings.Split(right, ")")[0]
 
-		found, _, foundnode := Bfs(myMap.Head, nodeID)
-		if found {
-			foundnode.AddLeft(left)
-			foundnode.AddRight(right)
-		} else {
-			node := &Node{
-				ID: nodeID,
-			}
+		_, nodeFound := nodes[nodeID]
+		leftNode, leftNodeFound := nodes[left]
+		rightNode, rightNodeFound := nodes[right]
 
-			node.AddLeft(left)
-			node.AddRight(right)
-
-			if myMap.Head == nil {
-				myMap.Head = node
-			}
+		if !nodeFound || !leftNodeFound || !rightNodeFound {
+			panic("Node(s) not found, shouldn't happen!")
 		}
 
+		nodes[nodeID].AddLeft(leftNode)
+		nodes[nodeID].AddRight(rightNode)
 	}
 
 	return myMap
