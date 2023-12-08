@@ -9,10 +9,8 @@ const (
 	OnePair
 	TwoPairs
 	ThreeOfAKind
-	Straight
-	Flush
-	FullHouse
 	FourOfAKind
+	FiveOfAKind
 )
 
 type Hand struct {
@@ -108,14 +106,13 @@ func (h *Hand) NumberScore() int {
 	sort.Sort(sort.Reverse(sort.IntSlice(h.occurrencies)))
 
 	switch h.occurrencies[0] {
+	case 5:
+		return FiveOfAKind
+
 	case 4:
 		return FourOfAKind
 
 	case 3:
-		if h.occurrencies[1] == 2 {
-			return FullHouse
-		}
-
 		return ThreeOfAKind
 
 	case 2:
