@@ -45,6 +45,12 @@ func day5Part2() {
 	lowestSeedLocation := -1
 
 	for i, seedsRange := range seedsRanges {
+		lower, _ := lib.GetMappingsDestinationsBounds(maps["humidity-to-location"])
+
+		if lowestSeedLocation != -1 && lowestSeedLocation < lower {
+			continue
+		}
+
 		seedLocation := lib.GetLocationBySeedsRange(
 			seedsRange,
 			maps["seed-to-soil"],
