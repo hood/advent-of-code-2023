@@ -3,6 +3,7 @@ package day_8
 import (
 	"adventofcode2023/days/day_8/lib"
 	"adventofcode2023/days/shared"
+	"strings"
 )
 
 func day8Part1() {
@@ -19,7 +20,12 @@ func day8Part1() {
 
 		hashMap := lib.HashMapFromLines(lines)
 
-		resultFound, resultLevel := lib.FindInHashMapWithCompass(hashMap, compass, "ZZZ")
+		resultFound, resultLevel := lib.FindInHashMapWithCompass(
+			hashMap,
+			compass,
+			"AAA",
+			func(s string) bool { return strings.Contains(s, "ZZZ") },
+		)
 		if resultFound == false {
 			panic("Node `ZZZ` not found!")
 		}

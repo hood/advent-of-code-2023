@@ -32,3 +32,7 @@ func (c *Compass) FromLine(line string) *Compass {
 
 	return c
 }
+
+func (c *Compass) Reset() {
+	c.step = 0
+}

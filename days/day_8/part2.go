@@ -22,13 +22,22 @@ func day8Part2() {
 
 		startingPoints := lib.FindStartingPoints(lines)
 
-		resultFound, resultLevel := lib.FindInHashMapWithDoublePath(hashMap, compass, startingPoints, func(s string) bool {
-			return strings.Contains(s, "Z")
-		})
-		if resultFound == false {
-			panic("End not found!")
+		results := make([]int, 0)
+
+		for _, startingPoint := range startingPoints {
+			resultFound, resultLevel := lib.FindInHashMapWithCompass(
+				hashMap,
+				compass,
+				startingPoint,
+				func(s string) bool { return strings.Contains(s, "Z") },
+			)
+			if resultFound {
+				results = append(results, resultLevel)
+			}
 		}
 
-		callback(resultLevel)
+		result := lib.LCM(results[0], results[1], results[2:]...)
+
+		callback(result)
 	})
 }
