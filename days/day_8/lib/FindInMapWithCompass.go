@@ -14,8 +14,8 @@ func FindInMapWithCompass(m *Map, c *Compass, target string) (bool, int) {
 			"Current: ", current.ID,
 			"Level: ", level,
 			"Next: ", string(direction),
-			"Left: ", current.Left.ID,
-			"Right: ", current.Right.ID,
+			"Left: ", current.Left,
+			"Right: ", current.Right,
 		)
 
 		if direction == 'L' {
