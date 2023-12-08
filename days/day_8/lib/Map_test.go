@@ -42,8 +42,9 @@ func TestMap(t *testing.T) {
 	zzz.AddLeft("ZZZ")
 	zzz.AddRight("ZZZ")
 
-	found, _, foundNode := Bfs(&aaa, "ZZZ")
+	found, foundAtLevel, foundNode := Bfs(&aaa, "ZZZ")
 
 	shared.AssertEqual(t, true, found)
 	shared.AssertEqual(t, "ZZZ", foundNode.ID)
+	shared.AssertEqual(t, 6, foundAtLevel)
 }
