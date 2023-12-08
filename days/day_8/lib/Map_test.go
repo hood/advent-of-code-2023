@@ -13,11 +13,6 @@ func TestMap(t *testing.T) {
 	aaa.AddLeft("BBB")
 	aaa.AddRight("CCC")
 
-	println(
-		aaa.Left.ID,
-		aaa.Right.ID,
-	)
-
 	bbb := aaa.Left
 	bbb.AddLeft("DDD")
 	bbb.AddRight("EEE")
