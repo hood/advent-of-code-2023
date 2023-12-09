@@ -10,7 +10,7 @@ func day9Part1() {
 
 	lines := shared.ReadFile("./days/day_9/input.txt")
 
-	shared.RunSolution(func(callback func(r interface{})) {
+	shared.RunSolution(9, 1, func(callback func(r interface{})) {
 		result := 0
 
 		for _, line := range lines {

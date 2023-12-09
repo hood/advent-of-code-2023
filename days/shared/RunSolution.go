@@ -7,7 +7,11 @@ import (
 	"golang.design/x/clipboard"
 )
 
-func RunSolution(solution func(callback func(r interface{}))) {
+func RunSolution(
+	day int,
+	part int,
+	solution func(callback func(r interface{})),
+) {
 	start := time.Now()
 
 	solution(func(result interface{}) {
@@ -18,10 +22,10 @@ func RunSolution(solution func(callback func(r interface{}))) {
 		clipboard.Init()
 		clipboard.Write(clipboard.FmtText, []byte(fmt.Sprintf("%v", result)))
 
-		recordTime := GetRecord(9, 1)
+		recordTime := GetRecord(day, part)
 
 		if elapsed.Microseconds() < recordTime || recordTime == 0 {
-			RegisterRecord(9, 1, elapsed.Microseconds())
+			RegisterRecord(day, part, elapsed.Microseconds())
 		}
 	})
 }
