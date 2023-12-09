@@ -28,3 +28,11 @@ func TestSequenceStepSizes(t *testing.T) {
 	shared.AssertEqual(t, len(expected), len(sequence.StepSizesAsString()))
 	shared.AssertEqual(t, expected[0], sequence.StepSizesAsString()[0])
 }
+
+func TestSequenceFInalValue(t *testing.T) {
+	input := "1 3 6 10 15 21"
+
+	sequence := SequenceFromString(input)
+
+	shared.AssertEqual(t, 28, sequence.FinalValue())
+}

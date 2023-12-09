@@ -90,6 +90,10 @@ func (s *Sequence) StepSizesAsString() []string {
 	return lines
 }
 
+func (s *Sequence) FinalValue() int {
+	return s.StepSizes()[0][len(s.StepSizes()[0])-1]
+}
+
 func SequenceFromString(line string) Sequence {
 	s := Sequence{}
 
