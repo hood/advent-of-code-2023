@@ -4,13 +4,21 @@ import "strconv"
 
 func ExtractIntegersFromString(line string) []IntegerWithCoordinates {
 	extractor := NewIntegersExtractor()
+	negative := false
 
 	for column, char := range line {
+		if char == '-' {
+			negative = true
+
+			continue
+		}
+
 		if extractor.ShouldCapture(char) {
 			extractor.Capture(char, column)
 
 			if column == len(line)-1 {
-				extractor.EndCapture(column)
+				extractor.EndCapture(column, negative)
+				negative = false
 			}
 
 			continue
@@ -22,7 +30,8 @@ func ExtractIntegersFromString(line string) []IntegerWithCoordinates {
 		}
 
 		// If it was capturing, but the sequence is over, wrap it up.
-		extractor.EndCapture(column)
+		extractor.EndCapture(column, negative)
+		negative = false
 	}
 
 	return extractor.Values()
@@ -67,7 +76,7 @@ func (extractor *IntegersExtractor) IsCapturing() bool {
 	return extractor.current.StartColumn != -1
 }
 
-func (extractor *IntegersExtractor) EndCapture(column int) {
+func (extractor *IntegersExtractor) EndCapture(column int, negative bool) {
 	// If was capturing, but it's not a number, wrap it up.
 	integer, error := strconv.Atoi(extractor.temporaryAccumulator)
 	if error != nil {
@@ -76,6 +85,10 @@ func (extractor *IntegersExtractor) EndCapture(column int) {
 
 	extractor.current.EndColumn = column - 1
 	extractor.current.Value = integer
+
+	if negative {
+		extractor.current.Value = -extractor.current.Value
+	}
 
 	extractor.values = append(extractor.values, extractor.current)
 
