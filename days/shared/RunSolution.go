@@ -12,6 +12,8 @@ func RunSolution(
 	part int,
 	solution func(callback func(r interface{})),
 ) {
+	fmt.Printf("\n\n**** Day %v.%b ****", day, part)
+
 	start := time.Now()
 
 	solution(func(result interface{}) {

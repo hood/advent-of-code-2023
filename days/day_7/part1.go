@@ -11,7 +11,7 @@ func day7Part1() {
 
 	lines := shared.ReadFile("./days/day_7/input.txt")
 
-	shared.RunSolution(func(callback func(r interface{})) {
+	shared.RunSolution(7, 1, func(callback func(r interface{})) {
 		handsWithBids := make([]lib.HandWithBid, len(lines))
 
 		for i, line := range lines {

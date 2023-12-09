@@ -11,7 +11,7 @@ func day8Part1() {
 
 	lines := shared.ReadFile("./days/day_8/input.txt")
 
-	shared.RunSolution(func(callback func(r interface{})) {
+	shared.RunSolution(8, 1, func(callback func(r interface{})) {
 		compass := lib.NewCompass()
 		compass.FromLine(lines[0])
 

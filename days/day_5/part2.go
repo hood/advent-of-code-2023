@@ -24,7 +24,7 @@ func day5Part2() {
 
 	lines := strings.Split(string(fileContent), "\n")
 
-	shared.RunSolution(func(callback func(r interface{})) {
+	shared.RunSolution(5, 2, func(callback func(r interface{})) {
 		maps := map[string][]lib.Map{
 			"seed-to-soil":            {},
 			"soil-to-fertilizer":      {},
