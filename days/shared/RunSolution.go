@@ -19,7 +19,7 @@ func RunSolution(
 	solution(func(result interface{}) {
 		elapsed := time.Since(start)
 
-		fmt.Println(fmt.Sprintf("Result -> %v (took %v)", result, elapsed.String()))
+		fmt.Println(fmt.Sprintf("Result: %v\nTime: %v", result, elapsed.String()))
 
 		clipboard.Init()
 		clipboard.Write(clipboard.FmtText, []byte(fmt.Sprintf("%v", result)))
