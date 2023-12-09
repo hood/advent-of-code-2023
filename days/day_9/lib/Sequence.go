@@ -59,17 +59,21 @@ func (s *Sequence) ValuesAsString() string {
 func (s *Sequence) StepSizesAsString() []string {
 	lines := []string{}
 
-	for _, steps := range s.StepSizes() {
+	for _, row := range s.StepSizes() {
 		str := ""
 
-		for j, value := range steps {
-			str += fmt.Sprint(value)
+		for j, stepSize := range row {
+			str += fmt.Sprint(stepSize)
 
-			if j < len(steps)-1 {
+			if j < len(row)-1 {
 				str += " "
 			}
 		}
+
+		lines = append(lines, str)
 	}
+
+	println(fmt.Sprintf("StepSizesAsString: %v", lines))
 
 	return lines
 }

@@ -17,10 +17,14 @@ func TestSequenceParse(t *testing.T) {
 func TestSequenceStepSizes(t *testing.T) {
 	input := "1 3 6 10 15 21"
 
-	expected := "2 3 4 5 6"
+	expected := []string{
+		"1 3 6 10 15 21",
+		"2 3 4 5 6",
+		"1 1 1 1",
+	}
 
 	sequence := SequenceFromString(input)
 
-	shared.AssertEqual(t, len(expected), len(sequence.StepSizesAsString()[0]))
-	shared.AssertEqual(t, expected, sequence.StepSizesAsString()[0])
+	shared.AssertEqual(t, len(expected), len(sequence.StepSizesAsString()))
+	shared.AssertEqual(t, expected[0], sequence.StepSizesAsString()[0])
 }
