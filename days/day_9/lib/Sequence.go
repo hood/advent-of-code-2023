@@ -73,8 +73,6 @@ func (s *Sequence) StepSizesAsString() []string {
 		lines = append(lines, str)
 	}
 
-	println(fmt.Sprintf("StepSizesAsString: %v", lines))
-
 	return lines
 }
 
