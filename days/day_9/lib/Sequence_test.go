@@ -13,3 +13,14 @@ func TestSequenceParse(t *testing.T) {
 	shared.AssertEqual(t, len(input), len(sequence.ValuesAsString()))
 	shared.AssertEqual(t, input, sequence.ValuesAsString())
 }
+
+func TestSequenceStepSizes(t *testing.T) {
+	input := "1 3 6 10 15 21"
+
+	expected := "2 3 4 5 6"
+
+	sequence := SequenceFromString(input)
+
+	shared.AssertEqual(t, len(expected), len(sequence.StepSizesAsString()))
+	shared.AssertEqual(t, expected, sequence.StepSizesAsString())
+}

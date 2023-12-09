@@ -37,6 +37,20 @@ func (s *Sequence) ValuesAsString() string {
 	return str
 }
 
+func (s *Sequence) StepSizesAsString() string {
+	str := ""
+
+	for i, value := range s.StepSizes() {
+		str += fmt.Sprint(value)
+
+		if i < len(s.StepSizes())-1 {
+			str += " "
+		}
+	}
+
+	return str
+}
+
 func SequenceFromString(line string) Sequence {
 	s := Sequence{}
 
