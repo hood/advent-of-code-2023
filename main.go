@@ -1,9 +1,16 @@
 package main
 
-import "adventofcode2023/days/day_9"
+import (
+	"adventofcode2023/days/day_8"
+	"adventofcode2023/days/day_9"
+	"os"
+)
 
 func main() {
 	println("Starting...")
+
+	day := os.Args[1]
+	part := os.Args[2]
 
 	// day_1_1.Entry()
 	// day_1_2.Entry()
@@ -20,9 +27,29 @@ func main() {
 
 	// day_7.Day7()
 
-	// day_8.Day8()
+	if day == "8" {
+		if part == "1" {
+			day_8.Day8Part1()
+			return
+		}
 
-	day_9.Day9()
+		if part == "2" {
+			day_8.Day8Part2()
+			return
+		}
+	}
 
-	println("\n\nDone!")
+	if day == "9" {
+		if part == "1" {
+			day_9.Day9Part1()
+			return
+		}
+
+		// if part == "2" {
+		// 	day_9.Day9Part2()
+		// 	return
+		// }
+	}
+
+	println("Nothing found!")
 }

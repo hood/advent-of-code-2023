@@ -5,7 +5,7 @@ import (
 	"adventofcode2023/days/shared"
 )
 
-func day9Part1() {
+func Day9Part1() {
 	lines := shared.ReadFile("./days/day_9/input.txt")
 
 	shared.RunSolution(9, 1, func(callback func(r interface{})) {
