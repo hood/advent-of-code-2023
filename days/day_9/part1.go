@@ -1,14 +1,23 @@
 package day_9
 
-import "adventofcode2023/days/shared"
+import (
+	"adventofcode2023/days/day_9/lib"
+	"adventofcode2023/days/shared"
+)
 
 func day9Part1() {
 	println("\n\n***** Day 9.1 ****")
 
-	// lines := shared.ReadFile("./days/day_9/input.txt")
+	lines := shared.ReadFile("./days/day_9/input.txt")
 
 	shared.RunSolution(func(callback func(r interface{})) {
 		result := 0
+
+		for _, line := range lines {
+			s := lib.SequenceFromString(line)
+			result += s.FinalValue()
+		}
+
 		callback(result)
 	})
 }
