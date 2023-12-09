@@ -1,6 +1,6 @@
 package main
 
-import "adventofcode2023/days/day_8"
+import "adventofcode2023/days/day_9"
 
 func main() {
 	println("Starting...")
@@ -20,7 +20,9 @@ func main() {
 
 	// day_7.Day7()
 
-	day_8.Day8()
+	// day_8.Day8()
+
+	day_9.Day9()
 
 	println("\n\nDone!")
 }
