@@ -39,6 +39,20 @@ func (s *Sequence) StepSizes() [][]int {
 		lineIndex++
 	}
 
+	for i := len(stepSizes) - 1; i >= 0; i-- {
+		row := stepSizes[i]
+
+		incrementSize := 0
+
+		if i < len(stepSizes)-1 {
+			rowUnder := stepSizes[i+1]
+
+			incrementSize = rowUnder[len(rowUnder)-1]
+		}
+
+		stepSizes[i] = append(row, row[len(row)-1]+incrementSize)
+	}
+
 	return stepSizes
 }
 
