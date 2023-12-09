@@ -47,6 +47,7 @@ func (s *Sequence) StepSizes() [][]int {
 		if i < len(stepSizes)-1 {
 			rowUnder := stepSizes[i+1]
 
+			// incrementSize = int(math.Abs(float64(rowUnder[len(rowUnder)-1])))
 			incrementSize = rowUnder[len(rowUnder)-1]
 		}
 
@@ -88,6 +89,18 @@ func (s *Sequence) StepSizesAsString() []string {
 	}
 
 	return lines
+}
+
+func (s *Sequence) DebugStepSizes() {
+	for i, line := range s.StepSizesAsString() {
+		str := ""
+
+		for j := 0; j < i; j++ {
+			str += " "
+		}
+
+		println(str + line)
+	}
 }
 
 func (s *Sequence) FinalValue() int {

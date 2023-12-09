@@ -29,10 +29,19 @@ func TestSequenceStepSizes(t *testing.T) {
 	shared.AssertEqual(t, expected[0], sequence.StepSizesAsString()[0])
 }
 
-func TestSequenceFInalValue(t *testing.T) {
+func TestSequenceFinalValue(t *testing.T) {
 	input := "1 3 6 10 15 21"
 
 	sequence := SequenceFromString(input)
 
 	shared.AssertEqual(t, 28, sequence.FinalValue())
+}
+
+func TestSequenceParse2(t *testing.T) {
+	input := "8 6 1 -7 -18 -32 -49 -69 -92 -118 -147 -179 -214 -252 -293 -337 -384 -434 -487 -543 -602"
+
+	sequence := SequenceFromString(input)
+
+	shared.AssertEqual(t, len(input), len(sequence.ValuesAsString()))
+	shared.AssertEqual(t, input, sequence.ValuesAsString())
 }

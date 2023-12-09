@@ -7,8 +7,6 @@ import (
 )
 
 func main() {
-	println("Starting...")
-
 	day := os.Args[1]
 	part := os.Args[2]
 
