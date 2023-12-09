@@ -13,11 +13,30 @@ func (s *Sequence) Length() int {
 	return len(s.values)
 }
 
-func (s *Sequence) StepSizes() []int {
-	stepSizes := []int{}
+func (s *Sequence) StepSizes() [][]int {
+	stepSizes := [][]int{}
+	stepSizes = append(stepSizes, s.values)
+	lineIndex := 1
 
-	for i := 1; i < s.Length(); i++ {
-		stepSizes = append(stepSizes, s.values[i]-s.values[i-1])
+	for {
+		line := []int{}
+		sumOfStepSizes := 0
+
+		for i := 1; i < len(stepSizes[lineIndex-1]); i++ {
+			stepSize := stepSizes[lineIndex-1][i] - stepSizes[lineIndex-1][i-1]
+
+			line = append(line, stepSize)
+
+			sumOfStepSizes += stepSize
+		}
+
+		if sumOfStepSizes == 0 {
+			break
+		}
+
+		stepSizes = append(stepSizes, line)
+
+		lineIndex++
 	}
 
 	return stepSizes
@@ -37,18 +56,22 @@ func (s *Sequence) ValuesAsString() string {
 	return str
 }
 
-func (s *Sequence) StepSizesAsString() string {
-	str := ""
+func (s *Sequence) StepSizesAsString() []string {
+	lines := []string{}
 
-	for i, value := range s.StepSizes() {
-		str += fmt.Sprint(value)
+	for _, steps := range s.StepSizes() {
+		str := ""
 
-		if i < len(s.StepSizes())-1 {
-			str += " "
+		for j, value := range steps {
+			str += fmt.Sprint(value)
+
+			if j < len(steps)-1 {
+				str += " "
+			}
 		}
 	}
 
-	return str
+	return lines
 }
 
 func SequenceFromString(line string) Sequence {

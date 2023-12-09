@@ -21,6 +21,6 @@ func TestSequenceStepSizes(t *testing.T) {
 
 	sequence := SequenceFromString(input)
 
-	shared.AssertEqual(t, len(expected), len(sequence.StepSizesAsString()))
-	shared.AssertEqual(t, expected, sequence.StepSizesAsString())
+	shared.AssertEqual(t, len(expected), len(sequence.StepSizesAsString()[0]))
+	shared.AssertEqual(t, expected, sequence.StepSizesAsString()[0])
 }
