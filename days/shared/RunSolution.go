@@ -12,7 +12,7 @@ func RunSolution(
 	part int,
 	solution func(callback func(r interface{})),
 ) {
-	fmt.Printf("\n------------------ Day %v.%v ------------------\n", day, part)
+	fmt.Printf("\n------------------| Day %v.%v |------------------\n", day, part)
 
 	start := time.Now()
 
