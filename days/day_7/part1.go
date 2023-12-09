@@ -7,8 +7,6 @@ import (
 )
 
 func day7Part1() {
-	println("\n\n***** Day 7.1 ****")
-
 	lines := shared.ReadFile("./days/day_7/input.txt")
 
 	shared.RunSolution(7, 1, func(callback func(r interface{})) {

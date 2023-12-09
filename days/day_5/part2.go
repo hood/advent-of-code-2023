@@ -15,8 +15,6 @@ func (a BySourceRangeStart) Less(i, j int) bool { return a[i].SourceRangeStart <
 func (a BySourceRangeStart) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 func day5Part2() {
-	println("\n\n***** Day 5.2 ****")
-
 	fileContent, error := os.ReadFile("./days/day_5/input.txt")
 	if error != nil {
 		panic(error)
