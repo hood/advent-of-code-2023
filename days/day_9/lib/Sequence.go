@@ -6,16 +6,16 @@ import (
 )
 
 type Sequence struct {
-	values []int
+	Values []int
 }
 
 func (s *Sequence) Length() int {
-	return len(s.values)
+	return len(s.Values)
 }
 
 func (s *Sequence) StepSizes() [][]int {
 	stepSizes := [][]int{}
-	stepSizes = append(stepSizes, s.values)
+	stepSizes = append(stepSizes, s.Values)
 	lineIndex := 1
 
 	for {
@@ -60,7 +60,7 @@ func (s *Sequence) StepSizes() [][]int {
 func (s *Sequence) ValuesAsString() string {
 	str := ""
 
-	for i, value := range s.values {
+	for i, value := range s.Values {
 		str += fmt.Sprint(value)
 
 		if i < s.Length()-1 {
@@ -111,7 +111,7 @@ func SequenceFromString(line string) Sequence {
 	s := Sequence{}
 
 	for _, value := range shared.ExtractIntegersFromString(line) {
-		s.values = append(s.values, value.Value)
+		s.Values = append(s.Values, value.Value)
 	}
 
 	return s
