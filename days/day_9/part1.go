@@ -14,11 +14,6 @@ func Day9Part1() {
 		for _, line := range lines {
 			s := lib.SequenceFromString(line)
 			result += lib.Lagrange(s.Values)
-
-			// println(line)
-			// println(s.FinalValue())
-			// s.DebugStepSizes()
-			// println("\n")
 		}
 
 		callback(result)
