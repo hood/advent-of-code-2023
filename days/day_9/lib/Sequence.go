@@ -87,19 +87,23 @@ func (s *Sequence) ReverseStepSizes() [][]int {
 		lineIndex++
 	}
 
+	// For each row the step sizes.
 	for i := len(stepSizes) - 1; i >= 0; i-- {
 		row := stepSizes[i]
 
+		// Start by assuming it's the bottom row,
+		// so increment size is 0.
 		incrementSize := 0
 
+		// If it's not the bottom row, then the
+		// increment size is first value of the row under.
 		if i < len(stepSizes)-1 {
 			rowUnder := stepSizes[i+1]
 
-			// incrementSize = int(math.Abs(float64(rowUnder[len(rowUnder)-1])))
-			incrementSize = rowUnder[len(rowUnder)-1]
+			incrementSize = rowUnder[0]
 		}
 
-		stepSizes[i] = append([]int{row[len(row)-1] - incrementSize}, row...)
+		stepSizes[i] = append([]int{row[0] - incrementSize}, row...)
 	}
 
 	return stepSizes
@@ -156,7 +160,7 @@ func (s *Sequence) FinalValue() int {
 }
 
 func (s *Sequence) FinalReversedValue() int {
-	return s.StepSizes()[0][len(s.StepSizes()[0])-1]
+	return s.ReverseStepSizes()[0][0]
 }
 
 func SequenceFromString(line string) Sequence {
