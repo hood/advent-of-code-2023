@@ -25,19 +25,31 @@ func MapFromLines(lines []string) (Map, []int) {
 	return m, startingPoint
 }
 
-// func (m *Map) FindFarthestTile(startingPoint []int) int {
-// 	current := Coordinates{startingPoint[0], startingPoint[1]}
-// 	previous := Coordinates{startingPoint[0], startingPoint[1]}
-// 	distance := 0
+func (m *Map) FindFarthestTile(startingPoint []int) int {
+	currentX, currentY := startingPoint[0], startingPoint[1]
+	previousX, previousY := startingPoint[0], startingPoint[1]
+	distance := 0
 
-// 	// Loop around the current cell.
-// 	// Find all pipes that connect, excluding the previous one.
-// 	for {
-// 		switch {
+	// Loop around the current cell.
+	// Find all pipes that connect, excluding the previous one.
+	for {
+		connecting := m.FindConnectingTiles([]int{currentX, currentY}, []int{previousX, previousY})
 
-// 		}
-// 	}
-// }
+		// If there are no connecting tiles, we're done.
+		if len(connecting) == 0 {
+			return distance
+		}
+
+		for _, connection := range connecting {
+			previousX, previousY = currentX, currentY
+			currentX, currentY = connection[0], connection[1]
+		}
+
+		distance++
+	}
+
+	return distance
+}
 
 // Given a point, and another point that we came from, find all tiles that
 // are adjacent to the point, connect to it, and are not the previous point.
