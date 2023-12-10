@@ -19,3 +19,18 @@ func TestMap(t *testing.T) {
 	shared.AssertEqual(t, startingPoint[0], 2)
 	shared.AssertEqual(t, startingPoint[1], 0)
 }
+
+func TestFindConnectingTiles(t *testing.T) {
+	input := []string{
+		".|.",
+		"-S-",
+		".|.",
+	}
+
+	m, _ := MapFromLines(input)
+
+	connections := m.FindConnectingTiles([]int{1, 1}, []int{1, 1})
+
+	shared.AssertEqual(t, 4, len(connections))
+
+}

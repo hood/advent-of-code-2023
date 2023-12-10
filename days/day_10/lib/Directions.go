@@ -1,15 +1,15 @@
 package lib
 
 type Direction struct {
-	Vertical   int
-	Horizontal int
+	Y int
+	X int
 }
 
 var Directions = map[rune]Direction{
-	'N': Direction{Vertical: -1, Horizontal: 0},
-	'E': Direction{Vertical: 0, Horizontal: 1},
-	'S': Direction{Vertical: 1, Horizontal: 1},
-	'W': Direction{Vertical: 0, Horizontal: -1},
+	'N': Direction{Y: -1, X: 0},
+	'E': Direction{Y: 0, X: 1},
+	'S': Direction{Y: 1, X: 1},
+	'W': Direction{Y: 0, X: -1},
 }
 
 type Tile []Direction
