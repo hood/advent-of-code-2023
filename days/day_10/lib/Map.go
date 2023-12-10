@@ -44,7 +44,7 @@ func (m *Map) FindFarthestTile(startingPoint []int) int {
 
 		connecting := m.FindConnectingTiles(
 			Coordinates{currentX, currentY},
-			Coordinates{currentX, currentY},
+			Coordinates{previousX, previousY},
 		)
 
 		fmt.Printf("Connecting tiles: %v\n", len(connecting))
@@ -74,7 +74,7 @@ func (m *Map) FindFarthestTile(startingPoint []int) int {
 func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coordinates {
 	connections := []Coordinates{}
 
-	// Check all directions around the point.
+	// Check all 4 directions around the point.
 	for _, direction := range Directions {
 		// West boundary.
 		if point[0] == 0 && direction.X == -1 {
