@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestDay9Part1(t *testing.T) {
+func TestDay9Part1Test(t *testing.T) {
 	lines := shared.ReadFile("./test_input.txt")
 
 	result := 0
@@ -14,9 +14,22 @@ func TestDay9Part1(t *testing.T) {
 	for _, line := range lines {
 		s := lib.SequenceFromString(line)
 
-		// result += s.FinalValue()
 		result += lib.Lagrange(s.Values)
 	}
 
 	shared.AssertEqual(t, 114, result)
+}
+
+func TestDay9Part1Final(t *testing.T) {
+	lines := shared.ReadFile("./input.txt")
+
+	result := 0
+
+	for _, line := range lines {
+		s := lib.SequenceFromString(line)
+
+		result += lib.Lagrange(s.Values)
+	}
+
+	shared.AssertEqual(t, 1861775706, result)
 }

@@ -13,7 +13,8 @@ func Day9Part1() {
 
 		for _, line := range lines {
 			s := lib.SequenceFromString(line)
-			result += lib.Lagrange(s.Values)
+			// result += lib.Lagrange(s.Values)
+			result += s.FinalValue()
 		}
 
 		callback(result)

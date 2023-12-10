@@ -56,3 +56,13 @@ func TestSequenceFromStringFull(t *testing.T) {
 		shared.AssertEqual(t, line, sequence.ValuesAsString())
 	}
 }
+
+func TestSequenceFinalValueEdgeCase(t *testing.T) {
+	line := "4 17 47 106 214 398 691 1131 1760 2623 3767 5240 7090 9364 12107 15361 19164 23549 28543 34166 40430"
+	sequence := SequenceFromString(line)
+
+	expected := 47338
+
+	shared.AssertEqual(t, line, sequence.ValuesAsString())
+	shared.AssertEqual(t, expected, sequence.FinalValue())
+}

@@ -20,17 +20,19 @@ func (s *Sequence) StepSizes() [][]int {
 
 	for {
 		line := []int{}
-		sumOfStepSizes := 0
+		foundAllZeroStepSizes := true
 
 		for i := 1; i < len(stepSizes[lineIndex-1]); i++ {
 			stepSize := stepSizes[lineIndex-1][i] - stepSizes[lineIndex-1][i-1]
 
 			line = append(line, stepSize)
 
-			sumOfStepSizes += stepSize
+			if stepSize != 0 {
+				foundAllZeroStepSizes = false
+			}
 		}
 
-		if sumOfStepSizes == 0 {
+		if foundAllZeroStepSizes {
 			break
 		}
 
@@ -52,6 +54,52 @@ func (s *Sequence) StepSizes() [][]int {
 		}
 
 		stepSizes[i] = append(row, row[len(row)-1]+incrementSize)
+	}
+
+	return stepSizes
+}
+
+func (s *Sequence) ReverseStepSizes() [][]int {
+	stepSizes := [][]int{}
+	stepSizes = append(stepSizes, s.Values)
+	lineIndex := 1
+
+	for {
+		line := []int{}
+		foundAllZeroStepSizes := true
+
+		for i := 1; i < len(stepSizes[lineIndex-1]); i++ {
+			stepSize := stepSizes[lineIndex-1][i] - stepSizes[lineIndex-1][i-1]
+
+			line = append(line, stepSize)
+
+			if stepSize != 0 {
+				foundAllZeroStepSizes = false
+			}
+		}
+
+		if foundAllZeroStepSizes {
+			break
+		}
+
+		stepSizes = append(stepSizes, line)
+
+		lineIndex++
+	}
+
+	for i := len(stepSizes) - 1; i >= 0; i-- {
+		row := stepSizes[i]
+
+		incrementSize := 0
+
+		if i < len(stepSizes)-1 {
+			rowUnder := stepSizes[i+1]
+
+			// incrementSize = int(math.Abs(float64(rowUnder[len(rowUnder)-1])))
+			incrementSize = rowUnder[len(rowUnder)-1]
+		}
+
+		stepSizes[i] = append([]int{row[len(row)-1] - incrementSize}, row...)
 	}
 
 	return stepSizes
@@ -104,6 +152,10 @@ func (s *Sequence) DebugStepSizes() {
 }
 
 func (s *Sequence) FinalValue() int {
+	return s.StepSizes()[0][len(s.StepSizes()[0])-1]
+}
+
+func (s *Sequence) FinalReversedValue() int {
 	return s.StepSizes()[0][len(s.StepSizes()[0])-1]
 }
 
