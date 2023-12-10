@@ -68,11 +68,12 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 
 		position := Coordinates{point[0] + direction.X, point[1] + direction.Y}
 
+		// Ignore the previous point.
 		if position[0] == previous[0] && position[1] == previous[1] {
 			continue
 		}
 
-		current := (*m)[position[0]][position[1]]
+		current := (*m)[position[1]][position[0]]
 
 		// Loop the endpoints of the current tile, check if they connect to the
 		// original tile.
@@ -80,6 +81,8 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 			if endpoint.X == -direction.X &&
 				endpoint.Y == -direction.Y {
 				connections = append(connections, position)
+
+				break
 			}
 		}
 	}
