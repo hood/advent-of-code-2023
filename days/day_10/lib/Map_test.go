@@ -43,8 +43,6 @@ func TestFindFarthestTile(t *testing.T) {
 
 	m, _ := MapFromLines(input)
 
-	m.Print(Coordinates{1, 1})
-
 	distance := m.FindFarthestTile(Coordinates{1, 1})
 
 	shared.AssertEqual(t, 4, distance)

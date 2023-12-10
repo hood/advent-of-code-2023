@@ -1,8 +1,10 @@
 package lib
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Map [][]Tile
+type Map [][]rune
 
 type Coordinates []int
 
@@ -11,14 +13,14 @@ func MapFromLines(lines []string) (Map, []int) {
 	startingPoint := []int{0, 0}
 
 	for rowindex, line := range lines {
-		row := []Tile{}
+		row := []rune{}
 
 		for columnindex, char := range line {
 			if char == 'S' {
 				startingPoint = []int{rowindex, columnindex}
 			}
 
-			row = append(row, Tiles[char])
+			row = append(row, char)
 		}
 
 		m = append(m, row)
@@ -32,12 +34,20 @@ func (m *Map) FindFarthestTile(startingPoint []int) int {
 	previousX, previousY := startingPoint[0], startingPoint[1]
 	distance := 0
 
+	println(previousX, previousY)
+
 	// Loop around the current cell.
 	// Find all pipes that connect, excluding the previous one.
 	for {
-		connecting := m.FindConnectingTiles([]int{currentX, currentY}, []int{previousX, previousY})
+		println("\n")
+		m.Print([]int{currentX, currentY})
 
-		fmt.Printf("x, y: %v, %v\nConnecting tiles: %v\n", currentX, currentY, connecting)
+		connecting := m.FindConnectingTiles(
+			Coordinates{currentX, currentY},
+			Coordinates{currentX, currentY},
+		)
+
+		fmt.Printf("Connecting tiles: %v\n", len(connecting))
 
 		// If there are no connecting tiles, we're done.
 		if len(connecting) == 0 {
@@ -97,7 +107,7 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 
 		// Loop the endpoints of the current tile, check if they connect to the
 		// original tile.
-		for _, endpoint := range current {
+		for _, endpoint := range Tiles[current] {
 			if endpoint.X == -direction.X &&
 				endpoint.Y == -direction.Y {
 				connections = append(connections, position)
@@ -110,30 +120,38 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 	return connections
 }
 
-func (m *Map) At(x int, y int) Tile {
+func (m *Map) At(x int, y int) rune {
 	return (*m)[y][x]
 }
 
 func (m *Map) Print(highlight Coordinates) {
+	// Clear output.
+	// fmt.Print("\033[H\033[2J")
+
 	for rowIndex, row := range *m {
 		for columnIndex, tile := range row {
-			for key, endpoints := range Tiles {
-				if tile == endpoints {
-					fmt.Printf("%v", key)
-				}
-			}
+			// for key := range Tiles {
+			// 	if tile == key {
+			// 		fmt.Printf("%v", key)
+			// 	}
+			// }
 
-			output := ""
+			output := string(tile)
 
 			if rowIndex == highlight[0] && columnIndex == highlight[1] {
-				output = fmt.Sprintf("\x1b[%dm%v\x1b[0m", 34, tile)
+				printColored(output)
 			} else {
-				output = fmt.Sprintf("%v", tile)
+				fmt.Print(output)
 			}
-
-			fmt.Print(output)
 		}
 
-		fmt.Println()
+		println("")
 	}
+}
+
+func printColored(v any) {
+	const colorRed = "\033[0;31m"
+	const colorNone = "\033[0m"
+
+	fmt.Printf("%v%v%v", colorRed, v, colorNone)
 }
