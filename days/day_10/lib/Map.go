@@ -18,6 +18,8 @@ func MapFromLines(lines []string) (Map, []int) {
 
 			row = append(row, Tiles[char])
 		}
+
+		m = append(m, row)
 	}
 
 	return m, startingPoint
@@ -44,27 +46,27 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 
 	// Check all directions around the point.
 	for _, direction := range Directions {
-		// West block.
+		// West boundary.
 		if point[0] == 0 && direction.X == -1 {
 			continue
 		}
 
-		// East block.
+		// East boundary.
 		if point[0] == len((*m)[0])-1 && direction.X == 1 {
 			continue
 		}
 
-		// North block.
+		// North boundary.
 		if point[1] == 0 && direction.Y == -1 {
 			continue
 		}
 
-		// South block.
+		// South boundary.
 		if point[1] == len(*m)-1 && direction.Y == 1 {
 			continue
 		}
 
-		position := Coordinates{point[0] + direction.Y, point[1] + direction.X}
+		position := Coordinates{point[0] + direction.X, point[1] + direction.Y}
 
 		if position[0] == previous[0] && position[1] == previous[1] {
 			continue
@@ -72,10 +74,11 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 
 		current := (*m)[position[0]][position[1]]
 
-		// Give the endpoints of the current tile, check if they connect to the
+		// Loop the endpoints of the current tile, check if they connect to the
 		// original tile.
 		for _, endpoint := range current {
-			if endpoint.Y == direction.Y*-1 && endpoint.X == direction.X*-1 {
+			if endpoint.X == -direction.X &&
+				endpoint.Y == -direction.Y {
 				connections = append(connections, position)
 			}
 		}
