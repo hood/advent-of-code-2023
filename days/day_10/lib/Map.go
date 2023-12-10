@@ -37,10 +37,33 @@ func MapFromLines(lines []string) (Map, []int) {
 // 	}
 // }
 
+// Given a point, and another point that we came from, find all tiles that
+// are adjacent to the point, connect to it, and are not the previous point.
 func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coordinates {
 	connections := []Coordinates{}
 
+	// Check all directions around the point.
 	for _, direction := range Directions {
+		// West block.
+		if point[0] == 0 && direction.X == -1 {
+			continue
+		}
+
+		// East block.
+		if point[0] == len((*m)[0])-1 && direction.X == 1 {
+			continue
+		}
+
+		// North block.
+		if point[1] == 0 && direction.Y == -1 {
+			continue
+		}
+
+		// South block.
+		if point[1] == len(*m)-1 && direction.Y == 1 {
+			continue
+		}
+
 		position := Coordinates{point[0] + direction.Y, point[1] + direction.X}
 
 		if position[0] == previous[0] && position[1] == previous[1] {
