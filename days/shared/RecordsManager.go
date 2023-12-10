@@ -36,17 +36,23 @@ func RegisterRecord(day int, part int, time int64) {
 func GetRecord(day int, part int) int64 {
 	db := driver()
 
-	row := db.QueryRow("SELECT time FROM records WHERE day = ? AND part = ?", day, part)
+	row := db.QueryRow(
+		"SELECT time FROM records WHERE day = ? AND part = ?",
+		day,
+		part,
+	)
 
 	var result int64
 
 	err := row.Scan(&result)
 	if err != nil {
+		// It's fine if we don't find a record.
 		if err.Error() == "sql: no rows in result set" {
 			return 0
 		}
 
 		fmt.Fprintf(os.Stderr, "Failed to get record: %s", err)
+
 		os.Exit(1)
 	}
 
