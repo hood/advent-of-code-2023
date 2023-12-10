@@ -1,5 +1,7 @@
 package lib
 
+import "fmt"
+
 type Map [][]Tile
 
 type Coordinates []int
@@ -35,9 +37,11 @@ func (m *Map) FindFarthestTile(startingPoint []int) int {
 	for {
 		connecting := m.FindConnectingTiles([]int{currentX, currentY}, []int{previousX, previousY})
 
+		fmt.Printf("x, y: %v, %v\nConnecting tiles: %v\n", currentX, currentY, connecting)
+
 		// If there are no connecting tiles, we're done.
 		if len(connecting) == 0 {
-			return distance
+			break
 		}
 
 		for _, connection := range connecting {
@@ -46,6 +50,10 @@ func (m *Map) FindFarthestTile(startingPoint []int) int {
 		}
 
 		distance++
+
+		if distance > len(*m)*len((*m)[0]) {
+			panic("This went too far!")
+		}
 	}
 
 	return distance
@@ -104,4 +112,28 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 
 func (m *Map) At(x int, y int) Tile {
 	return (*m)[y][x]
+}
+
+func (m *Map) Print(highlight Coordinates) {
+	for rowIndex, row := range *m {
+		for columnIndex, tile := range row {
+			for key, endpoints := range Tiles {
+				if tile == endpoints {
+					fmt.Printf("%v", key)
+				}
+			}
+
+			output := ""
+
+			if rowIndex == highlight[0] && columnIndex == highlight[1] {
+				output = fmt.Sprintf("\x1b[%dm%v\x1b[0m", 34, tile)
+			} else {
+				output = fmt.Sprintf("%v", tile)
+			}
+
+			fmt.Print(output)
+		}
+
+		fmt.Println()
+	}
 }

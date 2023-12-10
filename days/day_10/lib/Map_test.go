@@ -29,7 +29,7 @@ func TestFindConnectingTiles(t *testing.T) {
 
 	m, _ := MapFromLines(input)
 
-	connections := m.FindConnectingTiles([]int{1, 1}, []int{1, 1})
+	connections := m.FindConnectingTiles(Coordinates{1, 1}, Coordinates{1, 1})
 
 	shared.AssertEqual(t, 4, len(connections))
 }
@@ -43,7 +43,9 @@ func TestFindFarthestTile(t *testing.T) {
 
 	m, _ := MapFromLines(input)
 
-	distance := m.FindFarthestTile([]int{1, 1})
+	m.Print(Coordinates{1, 1})
+
+	distance := m.FindFarthestTile(Coordinates{1, 1})
 
 	shared.AssertEqual(t, 4, distance)
 }
