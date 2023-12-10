@@ -15,7 +15,7 @@ func TestDay9Part1(t *testing.T) {
 		s := lib.SequenceFromString(line)
 
 		// result += s.FinalValue()
-		result += lib.Lagrange1(s.Values)
+		result += lib.Lagrange(s.Values)
 	}
 
 	shared.AssertEqual(t, 114, result)
