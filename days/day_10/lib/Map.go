@@ -73,7 +73,7 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 			continue
 		}
 
-		current := (*m)[position[1]][position[0]]
+		current := m.At(point[0], point[1])
 
 		// Loop the endpoints of the current tile, check if they connect to the
 		// original tile.
@@ -88,4 +88,8 @@ func (m *Map) FindConnectingTiles(point Coordinates, previous Coordinates) []Coo
 	}
 
 	return connections
+}
+
+func (m *Map) At(x int, y int) Tile {
+	return (*m)[y][x]
 }
