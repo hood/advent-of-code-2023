@@ -16,6 +16,14 @@ func (c *Coordinates) Y() int {
 	return (*c)[0]
 }
 
+func (c *Coordinates) SetX(x int) {
+	(*c)[1] = x
+}
+
+func (c *Coordinates) SetY(y int) {
+	(*c)[0] = y
+}
+
 func MapFromLines(lines []string) (Map, []int) {
 	m := Map{}
 	startingPoint := []int{0, 0}
@@ -38,8 +46,8 @@ func MapFromLines(lines []string) (Map, []int) {
 }
 
 func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
-	currentX, currentY := startingPoint[0], startingPoint[1]
-	previousX, previousY := currentX, currentY
+	currentPosition := startingPoint
+	previousPosition := startingPoint
 
 	distance := 0
 
@@ -47,12 +55,12 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 	// Find all pipes that connect, excluding the previous one.
 	for {
 		println("\n")
-		m.Print([]int{currentX, currentY})
+		m.Print([]int{currentPosition.X(), currentPosition.Y()})
 
 		// Find the connecting tiles.
 		connecting := m.FindConnectingTiles(
-			Coordinates{currentX, currentY},
-			Coordinates{previousX, previousY},
+			currentPosition,
+			previousPosition,
 		)
 
 		fmt.Printf("Connecting tiles: %v\n", len(connecting))
@@ -63,8 +71,10 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 		}
 
 		for _, connection := range connecting {
-			previousX, previousY = currentX, currentY
-			currentX, currentY = connection[0], connection[1]
+			previousPosition = currentPosition
+
+			currentPosition.SetX(connection.X())
+			currentPosition.SetY(connection.Y())
 		}
 
 		distance++
@@ -146,17 +156,8 @@ func (m *Map) At(x int, y int) rune {
 }
 
 func (m *Map) Print(highlight Coordinates) {
-	// Clear output.
-	// fmt.Print("\033[H\033[2J")
-
 	for rowIndex, row := range *m {
 		for columnIndex, tile := range row {
-			// for key := range Tiles {
-			// 	if tile == key {
-			// 		fmt.Printf("%v", key)
-			// 	}
-			// }
-
 			output := string(tile)
 
 			if rowIndex == highlight[0] && columnIndex == highlight[1] {
