@@ -77,14 +77,17 @@ func TestFindConnectingTiles3(t *testing.T) {
 
 func TestFindConnectingTiles4(t *testing.T) {
 	input := []string{
-		".F-",
-		"-.|",
-		".||",
+		"...",
+		"-S.",
+		"...",
 	}
 
 	m, _ := MapFromLines(input)
 
-	connections := m.FindConnectingTiles(Coordinates{0, 1}, Coordinates{0, 1})
+	connections := m.FindConnectingTiles(
+		Coordinates{X: 0, Y: 1},
+		Coordinates{X: 1, Y: 1},
+	)
 
 	shared.AssertEqual(t, 0, len(connections))
 }

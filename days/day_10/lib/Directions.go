@@ -12,7 +12,7 @@ var Directions = map[rune]Direction{
 	'W': {Y: 0, X: -1},
 }
 
-type Tile [4]Direction
+type Tile []Direction
 
 var Tiles = map[rune]Tile{
 	'|': {Directions['N'], Directions['S']},

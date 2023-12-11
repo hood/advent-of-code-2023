@@ -126,7 +126,7 @@ func (m *Map) FindConnectingTiles(
 		}
 
 		// Ignore the previous point.
-		if position.X == previous.X && position.Y == previous.Y {
+		if position.SameAs(previous) {
 			continue
 		}
 
@@ -145,6 +145,7 @@ func (m *Map) FindConnectingTiles(
 				endpoint.Y == -direction.Y {
 				connections = append(connections, position)
 
+				// As soon as one connects, we're done checking.
 				break
 			}
 		}
