@@ -6,34 +6,24 @@ import (
 
 type Map [][]rune
 
-type Coordinates []int
-
-func (c *Coordinates) X() int {
-	return (*c)[1]
+type Coordinates struct {
+	X int
+	Y int
 }
 
-func (c *Coordinates) Y() int {
-	return (*c)[0]
-}
-
-func (c *Coordinates) SetX(x int) {
-	(*c)[1] = x
-}
-
-func (c *Coordinates) SetY(y int) {
-	(*c)[0] = y
-}
-
-func MapFromLines(lines []string) (Map, []int) {
+func MapFromLines(lines []string) (Map, Coordinates) {
 	m := Map{}
-	startingPoint := []int{0, 0}
+	startingPoint := Coordinates{}
 
 	for rowindex, line := range lines {
 		row := []rune{}
 
 		for columnindex, char := range line {
 			if char == 'S' {
-				startingPoint = []int{rowindex, columnindex}
+				startingPoint = Coordinates{
+					X: columnindex,
+					Y: rowindex,
+				}
 			}
 
 			row = append(row, char)
@@ -46,8 +36,8 @@ func MapFromLines(lines []string) (Map, []int) {
 }
 
 func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
-	currentPosition := Coordinates{startingPoint.Y(), startingPoint.X()}
-	previousPosition := Coordinates{startingPoint.Y(), startingPoint.X()}
+	currentPosition := Coordinates{Y: startingPoint.Y, X: startingPoint.X}
+	previousPosition := Coordinates{Y: startingPoint.Y, X: startingPoint.X}
 
 	distance := 0
 
@@ -65,7 +55,7 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 
 		fmt.Printf("Connecting tiles: %v\n", len(connecting))
 		for _, connection := range connecting {
-			println("Connection(x,y):", connection.X(), connection.Y())
+			println("Connection(x,y):", connection.X, connection.Y)
 		}
 
 		// If there are no connecting tiles, we're done.
@@ -74,11 +64,11 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 		}
 
 		for _, connection := range connecting {
-			previousPosition.SetX(currentPosition.X())
-			previousPosition.SetY(currentPosition.Y())
+			previousPosition.X = currentPosition.X
+			previousPosition.Y = currentPosition.Y
 
-			currentPosition.SetX(connection.X())
-			currentPosition.SetY(connection.Y())
+			currentPosition.X = connection.X
+			currentPosition.Y = connection.Y
 		}
 
 		distance++
@@ -100,40 +90,40 @@ func (m *Map) FindConnectingTiles(
 	connections := []Coordinates{}
 
 	// Check all 4 directions around the point.
-	for _, direction := range Tiles[m.At(point.X(), point.Y())] {
+	for _, direction := range Tiles[m.At(point)] {
 		// West boundary.
-		if point.Y() == 0 && direction.Y == -1 {
+		if point.Y == 0 && direction.Y == -1 {
 			continue
 		}
 
 		// South boundary.
-		if point.Y() == len(*m)-1 && direction.Y == 1 {
+		if point.Y == len(*m)-1 && direction.Y == 1 {
 			continue
 		}
 
 		// North boundary.
-		if point.X() == 0 && direction.X == -1 {
+		if point.X == 0 && direction.X == -1 {
 			continue
 		}
 
 		// East boundary.
-		if point.X() == len((*m)[0])-1 && direction.X == 1 {
+		if point.X == len((*m)[0])-1 && direction.X == 1 {
 			continue
 		}
 
 		// Calculate the position of the tile in the current direction.
 		position := Coordinates{
-			point.Y() + direction.Y,
-			point.X() + direction.X,
+			X: point.X + direction.X,
+			Y: point.Y + direction.Y,
 		}
 
 		// Ignore the previous point.
-		if position.X() == previous.X() && position.Y() == previous.Y() {
+		if position.X == previous.X && position.Y == previous.Y {
 			continue
 		}
 
 		// Get the symbol for the calculated position.
-		current := m.At(position.X(), position.Y())
+		current := m.At(position)
 
 		// Ignore spaces.
 		if current == '.' {
@@ -155,18 +145,18 @@ func (m *Map) FindConnectingTiles(
 	return connections
 }
 
-func (m *Map) At(x int, y int) rune {
-	return (*m)[y][x]
+func (m *Map) At(coordinates Coordinates) rune {
+	return (*m)[coordinates.Y][coordinates.X]
 }
 
 func (m *Map) Print(highlight Coordinates, previousHighlight Coordinates) {
-	for rowIndex, row := range *m {
-		for columnIndex, tile := range row {
+	for verticalIndex, row := range *m {
+		for horizontalIndex, tile := range row {
 			output := string(tile)
 
-			if rowIndex == highlight.Y() && columnIndex == highlight.X() {
+			if verticalIndex == highlight.Y && horizontalIndex == highlight.X {
 				printRed(output)
-			} else if rowIndex == previousHighlight.X() && columnIndex == previousHighlight.X() {
+			} else if verticalIndex == previousHighlight.Y && horizontalIndex == previousHighlight.X {
 				printYellow(output)
 			} else {
 				fmt.Print(output)

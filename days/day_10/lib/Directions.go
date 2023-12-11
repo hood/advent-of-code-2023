@@ -1,8 +1,8 @@
 package lib
 
 type Direction struct {
-	Y int
 	X int
+	Y int
 }
 
 var Directions = map[rune]Direction{
