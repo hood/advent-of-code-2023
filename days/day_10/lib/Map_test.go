@@ -57,6 +57,25 @@ func TestFindConnectingTiles2(t *testing.T) {
 	shared.AssertEqual(t, leftConnection.Y(), connections[1].Y())
 }
 
+func TestFindConnectingTiles3(t *testing.T) {
+	input := []string{
+		".F.",
+		".S.",
+		"...",
+	}
+
+	m, _ := MapFromLines(input)
+
+	connections := m.FindConnectingTiles(Coordinates{1, 1}, Coordinates{1, 1})
+
+	topConnection := Coordinates{0, 1}
+
+	shared.AssertEqual(t, 1, len(connections))
+
+	shared.AssertEqual(t, topConnection.X(), connections[0].X())
+	shared.AssertEqual(t, topConnection.Y(), connections[0].Y())
+}
+
 func TestFindFarthestTile(t *testing.T) {
 	input := []string{
 		".F-",
