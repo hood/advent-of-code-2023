@@ -11,6 +11,14 @@ type Coordinates struct {
 	Y int
 }
 
+func (c *Coordinates) SameAs(oc Coordinates) bool {
+	if c.X == oc.X && c.Y == oc.Y {
+		return true
+	}
+
+	return false
+}
+
 func MapFromLines(lines []string) (Map, Coordinates) {
 	m := Map{}
 	startingPoint := Coordinates{}

@@ -43,18 +43,18 @@ func TestFindConnectingTiles2(t *testing.T) {
 
 	m, _ := MapFromLines(input)
 
-	connections := m.FindConnectingTiles(Coordinates{1, 1}, Coordinates{1, 1})
+	connections := m.FindConnectingTiles(
+		Coordinates{X: 1, Y: 1},
+		Coordinates{X: 1, Y: 1},
+	)
 
-	rightConnection := Coordinates{1, 2}
-	leftConnection := Coordinates{1, 0}
+	leftConnection := Coordinates{X: 0, Y: 1}
+	rightConnection := Coordinates{X: 2, Y: 1}
 
 	shared.AssertEqual(t, 2, len(connections))
 
-	shared.AssertEqual(t, rightConnection.X, connections[0].X)
-	shared.AssertEqual(t, rightConnection.Y, connections[0].Y)
-
-	shared.AssertEqual(t, leftConnection.X, connections[1].X)
-	shared.AssertEqual(t, leftConnection.Y, connections[1].Y)
+	shared.AssertEqual(t, true, connections[0].SameAs(leftConnection))
+	shared.AssertEqual(t, true, connections[1].SameAs(rightConnection))
 }
 
 func TestFindConnectingTiles3(t *testing.T) {
