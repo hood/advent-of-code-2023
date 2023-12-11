@@ -6,10 +6,10 @@ type Direction struct {
 }
 
 var Directions = map[rune]Direction{
-	'N': Direction{Y: -1, X: 0},
-	'E': Direction{Y: 0, X: 1},
-	'S': Direction{Y: 1, X: 0},
-	'W': Direction{Y: 0, X: -1},
+	'N': {Y: -1, X: 0},
+	'E': {Y: 0, X: 1},
+	'S': {Y: 1, X: 0},
+	'W': {Y: 0, X: -1},
 }
 
 type Tile [4]Direction
