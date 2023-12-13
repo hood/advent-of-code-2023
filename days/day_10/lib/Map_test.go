@@ -125,3 +125,44 @@ func TestFindFarthestTile2(t *testing.T) {
 
 	shared.AssertEqual(t, 2, distance)
 }
+
+func TestAmato(t *testing.T) {
+	input := []string{
+		"...........",
+		".S-------7.",
+		".|F-----7|.",
+		".||.....||.",
+		".||.....||.",
+		".|L-7.F-J|.",
+		".|..|.|..|.",
+		".L--J.L--J.",
+		"...........",
+	}
+
+	m, _ := MapFromLines(input)
+
+	result := m.Amato()
+
+	shared.AssertEqual(t, 4, len(result))
+}
+
+func TestAmato2(t *testing.T) {
+	input := []string{
+		"...........",
+		".S-------7.",
+		".|F-----7|.",
+		".||.....||.",
+		".||.....||.",
+		".|L-7.F-J|.",
+		".|..|.|..|.",
+		".|..|.|..|.",
+		".L--J.L--J.",
+		"...........",
+	}
+
+	m, _ := MapFromLines(input)
+
+	result := m.Amato()
+
+	shared.AssertEqual(t, 8, len(result))
+}

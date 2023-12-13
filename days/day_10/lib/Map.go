@@ -185,12 +185,67 @@ func printRed(v any) {
 	const colorRed = "\033[0;31m"
 	const colorNone = "\033[0m"
 
-	fmt.Printf("%v%v%v", colorRed, v, colorNone)
+	// fmt.Printf("%v%v%v", colorRed, v, colorNone)
 }
 
 func printYellow(v any) {
 	const colorYellow = "\033[0;33m"
 	const colorNone = "\033[0m"
 
-	fmt.Printf("%v%v%v", colorYellow, v, colorNone)
+	// fmt.Printf("%v%v%v", colorYellow, v, colorNone)
+}
+
+func (m *Map) Amato() []Coordinates {
+	capture := false
+	hasCaptured := false
+	xy := []Coordinates{}
+
+	for rowIndex, row := range *m {
+		capture = false
+		hasCaptured = false
+
+		for columnIndex, tile := range row {
+			// If the tile is a wall.
+			if tileIsWall(tile) {
+				if capture {
+					capture = false
+					continue
+				}
+
+				if capture == false &&
+					!tileIsWall(m.At(Coordinates{X: columnIndex - 1, Y: rowIndex})) {
+					capture = true
+
+					// fmt.Printf("\nx:%v y:%v tile:%v capture:%v hasCaptured:%v", columnIndex, rowIndex, string(tile), capture, hasCaptured)
+
+					continue
+				}
+
+				// If we've captured already, and
+				// we're still capturing when hitting
+				// this wall, then stop the capture.
+				if hasCaptured && capture {
+					capture = false
+
+					// fmt.Printf("\nx:%v y:%v tile:%v capture:%v hasCaptured:%v", columnIndex, rowIndex, string(tile), capture, hasCaptured)
+
+					continue
+				}
+			} else {
+				if capture {
+					xy = append(xy, Coordinates{X: columnIndex, Y: rowIndex})
+					hasCaptured = true
+				}
+			}
+
+			// fmt.Printf("\nx:%v y:%v tile:%v capture:%v hasCaptured:%v", columnIndex, rowIndex, string(tile), capture, hasCaptured)
+
+		}
+	}
+
+	return xy
+}
+
+func tileIsWall(tile rune) bool {
+	return tile != '.'
 }
