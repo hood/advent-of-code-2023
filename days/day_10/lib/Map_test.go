@@ -113,7 +113,7 @@ func TestFindFarthestTile2(t *testing.T) {
 	input := []string{
 		"...",
 		"FS.",
-		"L..",
+		"LJ.",
 	}
 
 	m, _ := MapFromLines(input)
@@ -123,5 +123,5 @@ func TestFindFarthestTile2(t *testing.T) {
 		Y: 1,
 	})
 
-	shared.AssertEqual(t, 2, distance)
+	shared.AssertEqual(t, 3, distance)
 }
