@@ -15,3 +15,13 @@ func TestDay10Part1Test(t *testing.T) {
 
 	shared.AssertEqual(t, 4, distance)
 }
+
+func TestDay10Part1TestFinal(t *testing.T) {
+	lines := shared.ReadFile("./part_1_test_input.txt")
+
+	m, startCoordinates := lib.MapFromLines(lines)
+
+	distance := m.FindFarthestTile(startCoordinates)
+
+	shared.AssertEqual(t, 8, distance)
+}
