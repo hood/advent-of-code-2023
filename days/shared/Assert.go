@@ -15,5 +15,4 @@ func AssertEqual(t *testing.T, expected interface{}, actual interface{}, notes .
 
 		t.FailNow()
 	}
-
 }
