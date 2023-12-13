@@ -1,6 +1,7 @@
 package main
 
 import (
+	"adventofcode2023/days/day_10"
 	"adventofcode2023/days/day_8"
 	"adventofcode2023/days/day_9"
 	"os"
@@ -47,6 +48,18 @@ func main() {
 			day_9.Day9Part2()
 			return
 		}
+	}
+
+	if day == "10" {
+		if part == "1" {
+			day_10.Day10Part1()
+			return
+		}
+
+		// if part == "2" {
+		// 	day_9.Day9Part2()
+		// 	return
+		// }
 	}
 
 	println("Nothing found!")
