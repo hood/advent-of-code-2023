@@ -52,7 +52,7 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 	// Loop around the current cell.
 	// Find all pipes that connect, excluding the previous one.
 	for {
-		println("\n")
+		println("")
 		m.Print(currentPosition, previousPosition)
 
 		// Find the connecting tiles.
@@ -65,16 +65,22 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 		for _, connection := range connecting {
 			println("Connection(x,y):", connection.X, connection.Y)
 		}
+		println("Previous(x,y):", previousPosition.X, previousPosition.Y)
 
 		// If there are no connecting tiles, we're done.
 		if len(connecting) == 0 {
 			break
 		}
 
-		for _, connection := range connecting {
-			previousPosition.X = currentPosition.X
-			previousPosition.Y = currentPosition.Y
+		if distance > 1 && len(connecting) > 1 {
+			panic("We can't handle this!")
+		}
 
+		// For every connecting tile we find (there should be max 1), move to that
+		// tile.
+		previousPosition.X = currentPosition.X
+		previousPosition.Y = currentPosition.Y
+		for _, connection := range connecting {
 			currentPosition.X = connection.X
 			currentPosition.Y = connection.Y
 		}
@@ -97,7 +103,7 @@ func (m *Map) FindConnectingTiles(
 ) []Coordinates {
 	connections := []Coordinates{}
 
-	// Check all 4 directions around the point.
+	// Check all directions of the point's endpoints.
 	for _, direction := range Tiles[m.At(point)] {
 		// West boundary.
 		if point.Y == 0 && direction.Y == -1 {
