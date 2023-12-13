@@ -123,5 +123,5 @@ func TestFindFarthestTile2(t *testing.T) {
 		Y: 1,
 	})
 
-	shared.AssertEqual(t, 3, distance)
+	shared.AssertEqual(t, 2, distance)
 }

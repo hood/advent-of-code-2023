@@ -86,7 +86,11 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 		}
 
 		if (distance > 1) && m.At(currentPosition) == 'S' {
-			return distance
+			if (distance % 2) == 0 {
+				return distance / 2
+			} else {
+				return distance/2 + 1
+			}
 		}
 
 		distance++
