@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func TestDay10Part21Test(t *testing.T) {
+func TestDay10Part2Test(t *testing.T) {
 	lines := shared.ReadFile("./part_2_test_input.txt")
 
-	m, _ := lib.MapFromLines(lines)
+	m, s := lib.MapFromLines(lines)
 
 	// Flood fill starting from all the cells at the edges of the map.
 	for y, column := range m {
@@ -17,11 +17,20 @@ func TestDay10Part21Test(t *testing.T) {
 			c := lib.Coordinates{X: x, Y: y}
 
 			if (x == 0 || y == 0 || x == len(m[y])-1 || y == len(column)-1) &&
-				(v == '.' || v == '-' || v == '7' || v == 'F') {
-				lib.FloodFill(&m, c, 'X')
+				(v == '.' || v == '-' || v == '7' || v == 'F' || v == 'J' || v == 'T' || v == '|') {
+				lib.FloodFill(
+					&m,
+					c,
+					'X',
+					[]rune{
+						'.', '-', '7', 'F', 'J', 'T', '|',
+					},
+				)
 			}
 		}
 	}
+
+	m.Print(s, s)
 
 	result := 0
 
