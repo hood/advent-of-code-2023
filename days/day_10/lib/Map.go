@@ -167,6 +167,30 @@ func (m *Map) SetAt(coordinates Coordinates, value rune) {
 	(*m)[coordinates.Y][coordinates.X] = value
 }
 
+func (m *Map) IsOutOfBounds(c Coordinates) bool {
+	// If row is less than 0
+	if c.Y < 0 {
+		return true
+	}
+
+	// If column is less than 0
+	if c.X < 0 {
+		return true
+	}
+
+	// If row is greater than image length
+	if c.Y > len(*m)-1 {
+		return true
+	}
+
+	// If column is greater than image length
+	if c.X > len((*m)[0])-1 {
+		return true
+	}
+
+	return false
+}
+
 func (m *Map) ToLines() []string {
 	lines := []string{}
 
