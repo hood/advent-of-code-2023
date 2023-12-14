@@ -16,16 +16,25 @@ func TestDay10Part2Test(t *testing.T) {
 		for x, v := range m[y] {
 			c := lib.Coordinates{X: x, Y: y}
 
-			if (x == 0 || y == 0 || x == len(m[y])-1 || y == len(column)-1) &&
-				(v == '.' || v == '-' || v == '7' || v == 'F' || v == 'J' || v == 'T' || v == '|') {
-				lib.FloodFill(
-					&m,
-					c,
-					'X',
-					[]rune{
-						'.', '-', '7', 'F', 'J', 'T', '|',
-					},
-				)
+			if x == 0 || y == 0 || x == len(m[y])-1 || y == len(column)-1 {
+				if /*v == '.' || */ v == '-' || v == '7' || v == 'F' || v == 'J' || v == 'T' || v == '|' {
+					lib.FloodFill(
+						&m,
+						c,
+						'X',
+						[]rune{
+							'-', 'L', '7', 'F', 'J', 'T', '|',
+						},
+					)
+				} else if v == '.' {
+					lib.FloodFill(
+						&m,
+						c,
+						'X',
+						[]rune{'.'},
+					)
+				}
+
 			}
 		}
 	}
