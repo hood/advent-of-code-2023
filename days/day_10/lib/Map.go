@@ -163,6 +163,20 @@ func (m *Map) At(coordinates Coordinates) rune {
 	return (*m)[coordinates.Y][coordinates.X]
 }
 
+func (m *Map) SetAt(coordinates Coordinates, value rune) {
+	(*m)[coordinates.Y][coordinates.X] = value
+}
+
+func (m *Map) ToLines() []string {
+	lines := []string{}
+
+	for _, row := range *m {
+		lines = append(lines, string(row))
+	}
+
+	return lines
+}
+
 func (m *Map) Print(highlight Coordinates, previousHighlight Coordinates) {
 	for verticalIndex, row := range *m {
 		for horizontalIndex, tile := range row {
@@ -213,7 +227,8 @@ func (m *Map) Amato() []Coordinates {
 				}
 
 				if capture == false &&
-					!tileIsWall(m.At(Coordinates{X: columnIndex - 1, Y: rowIndex})) {
+					(columnIndex > 0 &&
+						!tileIsWall(m.At(Coordinates{X: columnIndex - 1, Y: rowIndex}))) {
 					capture = true
 
 					// fmt.Printf("\nx:%v y:%v tile:%v capture:%v hasCaptured:%v", columnIndex, rowIndex, string(tile), capture, hasCaptured)
