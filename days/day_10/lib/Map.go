@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"regexp"
 )
 
 type Map [][]rune
@@ -287,4 +288,17 @@ func (m *Map) Amato() []Coordinates {
 
 func tileIsWall(tile rune) bool {
 	return tile != '.'
+}
+
+func (m *Map) FindEnclosedTiles() int {
+	notNeeded := regexp.MustCompile(`F-*7|L-*J`)
+
+	for rowIndex, row := range *m {
+		if notNeeded.MatchString(string(row)) {
+			(*m)[rowIndex] = []rune(notNeeded.ReplaceAllString(string(row), " "))
+		}
+
+	}
+
+	return 0
 }
