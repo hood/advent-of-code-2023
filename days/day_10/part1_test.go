@@ -11,7 +11,7 @@ func TestDay10Part1Test(t *testing.T) {
 
 	m, startCoordinates := lib.MapFromLines(lines)
 
-	distance := m.FindFarthestTile(startCoordinates)
+	distance, _ := m.FindFarthestTile(startCoordinates)
 
 	shared.AssertEqual(t, 4, distance)
 }
@@ -21,7 +21,7 @@ func TestDay10Part1TestFinal(t *testing.T) {
 
 	m, startCoordinates := lib.MapFromLines(lines)
 
-	distance := m.FindFarthestTile(startCoordinates)
+	distance, _ := m.FindFarthestTile(startCoordinates)
 
 	shared.AssertEqual(t, 8, distance)
 }

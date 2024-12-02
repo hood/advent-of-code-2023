@@ -2,7 +2,9 @@ package lib
 
 import (
 	"fmt"
+	"math"
 	"regexp"
+	"slices"
 )
 
 type Map [][]rune
@@ -44,7 +46,9 @@ func MapFromLines(lines []string) (Map, Coordinates) {
 	return m, startingPoint
 }
 
-func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
+func (m *Map) FindFarthestTile(startingPoint Coordinates) (int, []WalkedCell) {
+	walked := []WalkedCell{}
+
 	currentPosition := Coordinates{Y: startingPoint.Y, X: startingPoint.X}
 	previousPosition := Coordinates{Y: startingPoint.Y, X: startingPoint.X}
 
@@ -77,12 +81,14 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 			currentPosition.Y = connection.Y
 		}
 
+		walked = append(walked, WalkedCell{Coordinates: currentPosition, Value: m.At(currentPosition)})
+
 		if (distance > 1) && m.At(currentPosition) == 'S' {
 			if (distance % 2) == 0 {
-				return distance / 2
-			} else {
-				return distance/2 + 1
+				return distance / 2, walked
 			}
+
+			return distance/2 + 1, walked
 		}
 
 		distance++
@@ -92,7 +98,7 @@ func (m *Map) FindFarthestTile(startingPoint Coordinates) int {
 		}
 	}
 
-	return distance
+	return distance, walked
 }
 
 // Given a point, and another point that we came from, find all tiles that
@@ -301,4 +307,153 @@ func (m *Map) FindEnclosedTiles() int {
 	}
 
 	return 0
+}
+
+func (m *Map) Iterate(callback func(c Coordinates)) {
+	for rowIndex, row := range *m {
+		for columnIndex, _ := range row {
+			callback(Coordinates{X: columnIndex, Y: rowIndex})
+		}
+	}
+}
+
+// -----------------------------------------------------------------------------
+
+// isWalkable checks if a cell can be walked on.
+func (m *Map) isWalkable(c Coordinates) bool {
+	value := m.At(c)
+
+	return slices.Contains(WallTiles, value) && !m.IsOutOfBounds(c)
+}
+
+type WalkedCell struct {
+	Coordinates Coordinates
+	Value       rune
+}
+
+func (m *Map) WalkBorders(start Coordinates) []WalkedCell {
+	var walkedpath []WalkedCell
+
+	step := 0
+
+	// walk the maze.
+	var walk func(coords Coordinates)
+	walk = func(coords Coordinates) {
+		println("step", step, " - ", coords.X, coords.Y, string(m.At(coords)))
+		step++
+
+		if !m.isWalkable(coords) {
+			println("not walkable", coords.X, coords.Y, string(m.At(coords)))
+
+			return
+		}
+
+		// Add current cell to the path
+		if !slices.ContainsFunc(walkedpath, func(wc WalkedCell) bool {
+			return wc.Coordinates.SameAs(coords)
+		}) {
+			walkedpath = append(walkedpath, WalkedCell{Coordinates: coords, Value: m.At(coords)})
+		}
+
+		// Explore neighbors
+		for _, d := range directions {
+			walk(Coordinates{X: coords.X + d.dx, Y: coords.Y + d.dy})
+		}
+	}
+
+	// Start walking from the starting position
+	walk(start)
+
+	return walkedpath
+}
+
+// Direction vectors for moving in the maze.
+var directions = []struct {
+	dx, dy int
+}{
+	{0, 1},  // Right
+	{1, 0},  // Down
+	{0, -1}, // Left
+	{-1, 0}, // Up
+}
+
+// CountBoundaryAndInterior calculates the boundary and interior points.
+func (m *Map) CalculateArea(path []WalkedCell) int {
+	pathvertices := []WalkedCell{}
+	for _, cell := range path {
+		if slices.Contains(CornerTiles, cell.Value) {
+			pathvertices = append(pathvertices, cell)
+		}
+	}
+
+	return int(CalcPolygonArea(pathvertices))
+}
+
+// ShoelaceFormula calculates the total area of a polygon given its vertices.
+func ShoelaceFormula(vertices []WalkedCell) float64 {
+	n := len(vertices)
+	if n < 3 {
+		return 0 // Not a polygon
+	}
+
+	area := 0
+	for i := 0; i < n; i++ {
+		// Current vertex
+		x1, y1 := vertices[i].Coordinates.X, vertices[i].Coordinates.Y
+
+		// Next vertex (wrap around at the end)
+		x2, y2 := vertices[(i+1)%n].Coordinates.X, vertices[(i+1)%n].Coordinates.Y
+
+		area += x1*y2 - y1*x2
+	}
+
+	return math.Abs(float64(area)) / 2
+}
+
+func CalcPolygonArea(vertices []WalkedCell) float64 {
+	total := float64(0)
+	l := len(vertices)
+
+	for i := 0; i < l; i++ {
+		addX := float64(vertices[i].Coordinates.X)
+
+		yDisplacement := 0
+		if i != len(vertices)-1 {
+			yDisplacement = i + 1
+		}
+
+		xDisplacement := 0
+		if i != len(vertices)-1 {
+			xDisplacement = i + 1
+		}
+
+		addY := float64(vertices[yDisplacement].Coordinates.Y)
+		subX := float64(vertices[xDisplacement].Coordinates.X)
+		subY := float64(vertices[i].Coordinates.Y)
+
+		total += (addX * addY * float64(0.5))
+		total -= (subX * subY * float64(0.5))
+	}
+
+	return math.Abs(total)
+}
+
+func CalcPolygonArea2(vertices []WalkedCell) float64 {
+	total := float64(0)
+	l := len(vertices)
+
+	for i := 0; i < l; i++ {
+		// Current vertex
+		x1 := float64(vertices[i].Coordinates.X)
+		y1 := float64(vertices[i].Coordinates.Y)
+
+		// Next vertex (wrap around to the first vertex at the end)
+		x2 := float64(vertices[(i+1)%l].Coordinates.X)
+		y2 := float64(vertices[(i+1)%l].Coordinates.Y)
+
+		// Shoelace formula components
+		total += (x1 * y2) - (y1 * x2)
+	}
+
+	return math.Abs(total) / 2
 }

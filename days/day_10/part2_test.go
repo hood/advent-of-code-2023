@@ -6,50 +6,42 @@ import (
 	"testing"
 )
 
+// .┌────┐┌┐┌┐┌┐┌─┐....
+// .│┌──┐││││││││┌┘....
+// .││.┌┘││││││││└┐....
+// ┌┘└┐└┐└┘└┘││└┘I└─┐..
+// └──┘.└┐III└┘S┐┌─┐└┐.
+// ....┌─┘II┌┐┌┘│└┐└┐└┐
+// ....└┐I┌┐││└┐│I└┐└┐│
+// .....│┌┘└┘│┌┘│┌┐│.└┘
+// ....┌┘└─┐.││.││││...
+// ....└───┘.└┘.└┘└┘...
+
 func TestDay10Part2Test(t *testing.T) {
 	lines := shared.ReadFile("./part_2_test_input.txt")
 
-	m, s := lib.MapFromLines(lines)
+	m, start := lib.MapFromLines(lines)
 
-	// Flood fill starting from all the cells at the edges of the map.
-	for y, column := range m {
-		for x, v := range m[y] {
-			c := lib.Coordinates{X: x, Y: y}
+	_, walked := m.FindFarthestTile(start)
 
-			if x == 0 || y == 0 || x == len(m[y])-1 || y == len(column)-1 {
-				if /*v == '.' || */ v == '-' || v == '7' || v == 'F' || v == 'J' || v == 'T' || v == '|' {
-					lib.FloodFill(
-						&m,
-						c,
-						'X',
-						[]rune{
-							'-', 'L', '7', 'F', 'J', 'T', '|',
-						},
-					)
-				} else if v == '.' {
-					lib.FloodFill(
-						&m,
-						c,
-						'X',
-						[]rune{'.'},
-					)
-				}
-
+	// check walked for duplicates
+	for i := 0; i < len(walked)-1; i++ {
+		println(string(walked[i].Value))
+		for j := i + 1; j < len(walked); j++ {
+			if walked[i].Coordinates.SameAs(walked[j].Coordinates) {
+				t.Fatal("Duplicates found!")
 			}
 		}
 	}
 
-	m.Print(s, s)
+	println(string(walked[0].Value))
+	println(string(walked[len(walked)-2].Value))
 
-	result := 0
+	walked[len(walked)-1].Value = 'F'
 
-	for y := range m {
-		for _, v := range m[y] {
-			if v == '.' {
-				result++
-			}
-		}
-	}
+	result := lib.CalcPolygonArea2(walked)
+
+	println("RESULT", result)
 
 	shared.AssertEqual(t, 8, result)
 }

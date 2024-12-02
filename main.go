@@ -56,10 +56,10 @@ func main() {
 			return
 		}
 
-		// if part == "2" {
-		// 	day_9.Day9Part2()
-		// 	return
-		// }
+		if part == "2" {
+			// day_10.Day10Part2()
+			return
+		}
 	}
 
 	println("Nothing found!")

@@ -18,6 +18,8 @@ func Day10Part1() {
 
 			m, start := lib.MapFromLines(lines)
 
-			callback(m.FindFarthestTile(start))
+			distance, _ := m.FindFarthestTile(start)
+
+			callback(distance)
 		})
 }

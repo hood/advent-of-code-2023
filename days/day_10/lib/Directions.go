@@ -24,3 +24,7 @@ var Tiles = map[rune]Tile{
 	'S': {Directions['N'], Directions['S'], Directions['W'], Directions['E']},
 	'.': {},
 }
+
+var WallTiles = []rune{'|', '-', 'L', 'J', '7', 'F', 'S'}
+
+var CornerTiles = []rune{'F', 'L', 'J', '7'}

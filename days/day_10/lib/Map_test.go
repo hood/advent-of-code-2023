@@ -118,7 +118,7 @@ func TestFindFarthestTile2(t *testing.T) {
 
 	m, _ := MapFromLines(input)
 
-	distance := m.FindFarthestTile(Coordinates{
+	distance, _ := m.FindFarthestTile(Coordinates{
 		X: 1,
 		Y: 1,
 	})
